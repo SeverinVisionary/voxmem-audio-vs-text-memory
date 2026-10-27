@@ -1,0 +1,9 @@
+{
+ "settings": {
+  "writer": "C",
+  "fmt": "kv",
+  "extra": "longer",
+  "grule": "reservoir"
+ },
+ "rule": "max mean gold lp_sum; ties -> earlier candidate"
+}

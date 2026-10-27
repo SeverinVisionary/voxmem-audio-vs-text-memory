@@ -1,0 +1,532 @@
+{
+ "n_families": 32,
+ "arms": {
+  "A": {
+   "n": 32,
+   "acc": 28.1,
+   "acc_by_type": {
+    "speaker_information": 25.0,
+    "paralinguistic_information": 40.0,
+    "environmental_sound": 11.1
+   },
+   "det_agree": 71.9,
+   "j2_agree": 100,
+   "lp_sum": -16.908,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 2860.0,
+   "peak_gib": 18.17,
+   "seconds": 2.67
+  },
+  "E@0.1": {
+   "n": 32,
+   "acc": 43.8,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 33.3,
+    "environmental_sound": 55.6
+   },
+   "det_agree": 75.0,
+   "j2_agree": 100,
+   "lp_sum": -15.319,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3743.0,
+   "peak_gib": 19.11,
+   "seconds": 2.64,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 0,
+   "ev_any": 37.5,
+   "ev_kept_frac": 17.0,
+   "audio_share": 3.7
+  },
+  "E@0.25": {
+   "n": 32,
+   "acc": 43.8,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 33.3,
+    "environmental_sound": 55.6
+   },
+   "det_agree": 71.9,
+   "j2_agree": 100,
+   "lp_sum": -14.895,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3957.0,
+   "peak_gib": 19.26,
+   "seconds": 2.77,
+   "budget_gap_max": 2,
+   "audio_turns_zero": 0,
+   "ev_any": 56.2,
+   "ev_kept_frac": 30.1,
+   "audio_share": 9.2
+  },
+  "E@0.5": {
+   "n": 32,
+   "acc": 37.5,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 20.0,
+    "environmental_sound": 55.6
+   },
+   "det_agree": 71.9,
+   "j2_agree": 100,
+   "lp_sum": -15.246,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 4334.5,
+   "peak_gib": 19.53,
+   "seconds": 3.05,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 0,
+   "ev_any": 71.9,
+   "ev_kept_frac": 53.0,
+   "audio_share": 17.3
+  },
+  "F": {
+   "n": 24,
+   "acc": 29.2,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 25.0,
+    "environmental_sound": 25.0
+   },
+   "det_agree": 79.2,
+   "j2_agree": 100,
+   "lp_sum": -14.161,
+   "refusal": 4.2,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 5422.0,
+   "peak_gib": 19.96,
+   "seconds": 4.05
+  },
+  "G@0.1": {
+   "n": 32,
+   "acc": 40.6,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 33.3,
+    "environmental_sound": 44.4
+   },
+   "det_agree": 71.9,
+   "j2_agree": 100,
+   "lp_sum": -15.436,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3743.5,
+   "peak_gib": 19.11,
+   "seconds": 2.61,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 0,
+   "ev_any": 59.4,
+   "ev_kept_frac": 10.7,
+   "audio_share": 3.7
+  },
+  "G@0.25": {
+   "n": 32,
+   "acc": 43.8,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 40.0,
+    "environmental_sound": 44.4
+   },
+   "det_agree": 65.6,
+   "j2_agree": 100,
+   "lp_sum": -14.924,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3956.5,
+   "peak_gib": 19.26,
+   "seconds": 2.82,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 0,
+   "ev_any": 90.6,
+   "ev_kept_frac": 24.4,
+   "audio_share": 9.3
+  },
+  "G@0.5": {
+   "n": 32,
+   "acc": 50.0,
+   "acc_by_type": {
+    "speaker_information": 62.5,
+    "paralinguistic_information": 40.0,
+    "environmental_sound": 55.6
+   },
+   "det_agree": 65.6,
+   "j2_agree": 100,
+   "lp_sum": -14.849,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 4334.0,
+   "peak_gib": 19.53,
+   "seconds": 3.02,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 0,
+   "ev_any": 100,
+   "ev_kept_frac": 49.5,
+   "audio_share": 17.3
+  },
+  "Gmm@0.25": {
+   "n": 29,
+   "acc": 34.5,
+   "acc_by_type": {
+    "speaker_information": 42.9,
+    "paralinguistic_information": 28.6,
+    "environmental_sound": 37.5
+   },
+   "det_agree": 75.9,
+   "j2_agree": 100,
+   "lp_sum": -15.946,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3939,
+   "peak_gib": 19.26,
+   "seconds": 2.74,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 0,
+   "ev_any": 0,
+   "ev_kept_frac": 0.0,
+   "audio_share": 8.4
+  },
+  "M:C": {
+   "n": 32,
+   "acc": 31.2,
+   "acc_by_type": {
+    "speaker_information": 37.5,
+    "paralinguistic_information": 26.7,
+    "environmental_sound": 33.3
+   },
+   "det_agree": 75.0,
+   "j2_agree": 100,
+   "lp_sum": -16.651,
+   "refusal": 0,
+   "new_gt32": 3.1,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3514.5,
+   "peak_gib": 18.93,
+   "seconds": 2.65
+  },
+  "M:D": {
+   "n": 32,
+   "acc": 40.6,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 26.7,
+    "environmental_sound": 55.6
+   },
+   "det_agree": 75.0,
+   "j2_agree": 100,
+   "lp_sum": -15.182,
+   "refusal": 0,
+   "new_gt32": 3.1,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3601.0,
+   "peak_gib": 19.01,
+   "seconds": 2.59
+  },
+  "M:Dp": {
+   "n": 23,
+   "acc": 39.1,
+   "acc_by_type": {
+    "speaker_information": 66.7,
+    "paralinguistic_information": 18.2,
+    "environmental_sound": 55.6
+   },
+   "det_agree": 82.6,
+   "j2_agree": 100,
+   "lp_sum": -14.818,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 5167,
+   "peak_gib": 19.95,
+   "seconds": 3.19
+  },
+  "M:asr": {
+   "n": 32,
+   "acc": 28.1,
+   "acc_by_type": {
+    "speaker_information": 37.5,
+    "paralinguistic_information": 33.3,
+    "environmental_sound": 11.1
+   },
+   "det_agree": 75.0,
+   "j2_agree": 100,
+   "lp_sum": -16.676,
+   "refusal": 6.2,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 1884.5,
+   "peak_gib": 17.45,
+   "seconds": 1.7
+  },
+  "N": {
+   "n": 32,
+   "acc": 6.2,
+   "acc_by_type": {
+    "speaker_information": 25.0,
+    "paralinguistic_information": 0,
+    "environmental_sound": 0
+   },
+   "det_agree": 96.9,
+   "j2_agree": 100,
+   "lp_sum": -16.537,
+   "refusal": 12.5,
+   "new_gt32": 6.2,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 262.5,
+   "peak_gib": 16.11,
+   "seconds": 1.07
+  },
+  "T@0.1": {
+   "n": 32,
+   "acc": 40.6,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 33.3,
+    "environmental_sound": 44.4
+   },
+   "det_agree": 75.0,
+   "j2_agree": 100,
+   "lp_sum": -15.061,
+   "refusal": 0,
+   "new_gt32": 3.1,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3744.0,
+   "peak_gib": 19.11,
+   "seconds": 2.57,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 100,
+   "ev_any": 0,
+   "ev_kept_frac": 0.0,
+   "audio_share": 0.0
+  },
+  "T@0.25": {
+   "n": 32,
+   "acc": 43.8,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 33.3,
+    "environmental_sound": 55.6
+   },
+   "det_agree": 71.9,
+   "j2_agree": 100,
+   "lp_sum": -15.006,
+   "refusal": 0,
+   "new_gt32": 3.1,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3957.0,
+   "peak_gib": 19.26,
+   "seconds": 2.83,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 100,
+   "ev_any": 0,
+   "ev_kept_frac": 0.0,
+   "audio_share": 0.0
+  },
+  "T@0.25#line1": {
+   "n": 32,
+   "acc": 31.2,
+   "acc_by_type": {
+    "speaker_information": 37.5,
+    "paralinguistic_information": 20.0,
+    "environmental_sound": 44.4
+   },
+   "det_agree": 78.1,
+   "j2_agree": 100,
+   "lp_sum": -16.141,
+   "refusal": 0,
+   "new_gt32": 21.9,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3955.0,
+   "peak_gib": 19.26,
+   "seconds": 3.56,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 100,
+   "ev_any": 0,
+   "ev_kept_frac": 0.0,
+   "audio_share": 0.0
+  },
+  "T@0.5": {
+   "n": 32,
+   "acc": 37.5,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 26.7,
+    "environmental_sound": 44.4
+   },
+   "det_agree": 78.1,
+   "j2_agree": 100,
+   "lp_sum": -15.015,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 4334.5,
+   "peak_gib": 19.53,
+   "seconds": 2.81,
+   "budget_gap_max": 1,
+   "audio_turns_zero": 100,
+   "ev_any": 0,
+   "ev_kept_frac": 0.0,
+   "audio_share": 0.0
+  },
+  "oracle": {
+   "n": 32,
+   "acc": 40.6,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 40.0,
+    "environmental_sound": 33.3
+   },
+   "det_agree": 68.8,
+   "j2_agree": 100,
+   "lp_sum": -15.232,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3905.5,
+   "peak_gib": 19.39,
+   "seconds": 2.7
+  },
+  "shuf": {
+   "n": 32,
+   "acc": 37.5,
+   "acc_by_type": {
+    "speaker_information": 50.0,
+    "paralinguistic_information": 33.3,
+    "environmental_sound": 33.3
+   },
+   "det_agree": 75.0,
+   "j2_agree": 100,
+   "lp_sum": -14.659,
+   "refusal": 0,
+   "new_gt32": 0,
+   "new_gt48": 0,
+   "hit_max": 0,
+   "n_in_median": 3601.0,
+   "peak_gib": 19.01,
+   "seconds": 2.5
+  }
+ },
+ "contrasts": {
+  "F-T@0.25 (H1)": {
+   "n": 24,
+   "diff_pp": -12.5,
+   "discordance": 20.8
+  },
+  "G-T@0.1 (H2 at 0.1)": {
+   "n": 32,
+   "diff_pp": 0,
+   "discordance": 12.5
+  },
+  "G-T@0.25 (H2 at 0.25)": {
+   "n": 32,
+   "diff_pp": 0,
+   "discordance": 12.5
+  },
+  "G-T@0.5 (H2 at 0.5)": {
+   "n": 32,
+   "diff_pp": 12.5,
+   "discordance": 18.8
+  },
+  "G-Gmm@0.25": {
+   "n": 29,
+   "diff_pp": 6.9,
+   "discordance": 13.8
+  },
+  "F-E@0.25": {
+   "n": 24,
+   "diff_pp": -16.7,
+   "discordance": 25.0
+  },
+  "oracle-T@0.25": {
+   "n": 32,
+   "diff_pp": -3.1,
+   "discordance": 15.6
+  },
+  "A-N": {
+   "n": 32,
+   "diff_pp": 21.9,
+   "discordance": 28.1
+  },
+  "T@0.25-M:C": {
+   "n": 32,
+   "diff_pp": 12.5,
+   "discordance": 25.0
+  },
+  "M:C-shuf": {
+   "n": 32,
+   "diff_pp": -6.2,
+   "discordance": 12.5
+  }
+ },
+ "expected_dG": {
+  "0.1": -1.8,
+  "0.25": -2.8,
+  "0.5": -3.1
+ },
+ "mde_pp": [
+  9.0,
+  9.9
+ ],
+ "A_vs_voxmem": {
+  "ours": {
+   "speaker_information": 25.0,
+   "paralinguistic_information": 40.0,
+   "environmental_sound": 11.1,
+   "pooled": 28.1
+  },
+  "voxmem_fig4": {
+   "speaker_information": 42.2,
+   "paralinguistic_information": 15.2,
+   "environmental_sound": 15.4,
+   "pooled": 22.3
+  },
+  "note": "VoxMem includes refusal items; ours are answerable dev only"
+ },
+ "answer_line": {
+  "line0_det_disagree": 28.1,
+  "line1_det_disagree": 21.9,
+  "line0_acc": 43.8,
+  "line1_acc": 31.2
+ },
+ "P_A": {
+  "min": 1317,
+  "median": 1497.5,
+  "max": 1728
+ },
+ "P_M": {
+  "min": 2799,
+  "median": 3321.5,
+  "max": 4220
+ }
+}

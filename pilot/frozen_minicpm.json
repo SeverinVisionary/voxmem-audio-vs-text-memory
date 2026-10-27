@@ -1,0 +1,12 @@
+{
+ "settings": {
+  "writer": "D",
+  "fmt": "kv",
+  "extra": "prosody",
+  "grule": "reservoir",
+  "answer_line": 0,
+  "max_new": 48
+ },
+ "reader": "openbmb/MiniCPM-o-4_5, flat layout, chat(), greedy, budgets in its own positions",
+ "source": "out_dev/frozen_settings_minicpm.json (screen) + out_dev/DEV_RESULTS_minicpm.json (answer line, max_new); PREREGISTRATION §9"
+}

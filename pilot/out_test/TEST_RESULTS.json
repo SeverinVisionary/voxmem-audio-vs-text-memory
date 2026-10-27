@@ -1,0 +1,280 @@
+{
+ "n_families": 300,
+ "clusters_file": "out_test/clusters.json",
+ "arms": {
+  "A": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 28.33,
+   "by_type": {
+    "speaker_information": 43.75,
+    "paralinguistic_information": 23.57,
+    "environmental_sound": 21.25
+   }
+  },
+  "E@0.1": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 28.0,
+   "by_type": {
+    "speaker_information": 36.25,
+    "paralinguistic_information": 24.29,
+    "environmental_sound": 26.25
+   }
+  },
+  "E@0.25": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 31.0,
+   "by_type": {
+    "speaker_information": 43.75,
+    "paralinguistic_information": 24.29,
+    "environmental_sound": 30.0
+   }
+  },
+  "E@0.5": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 28.0,
+   "by_type": {
+    "speaker_information": 36.25,
+    "paralinguistic_information": 22.14,
+    "environmental_sound": 30.0
+   }
+  },
+  "F": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 28.0,
+   "by_type": {
+    "speaker_information": 36.25,
+    "paralinguistic_information": 23.57,
+    "environmental_sound": 27.5
+   }
+  },
+  "G@0.1": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 29.0,
+   "by_type": {
+    "speaker_information": 32.5,
+    "paralinguistic_information": 26.43,
+    "environmental_sound": 30.0
+   }
+  },
+  "G@0.25": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 29.0,
+   "by_type": {
+    "speaker_information": 35.0,
+    "paralinguistic_information": 23.57,
+    "environmental_sound": 32.5
+   }
+  },
+  "G@0.5": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 29.33,
+   "by_type": {
+    "speaker_information": 40.0,
+    "paralinguistic_information": 23.57,
+    "environmental_sound": 28.75
+   }
+  },
+  "Gmm@0.25": {
+   "n": 300,
+   "failed": 7,
+   "fail_rate": 0.0233,
+   "acc": 28.33,
+   "by_type": {
+    "speaker_information": 39.74,
+    "paralinguistic_information": 22.3,
+    "environmental_sound": 27.63
+   }
+  },
+  "N": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 8.33,
+   "by_type": {
+    "speaker_information": 11.25,
+    "paralinguistic_information": 5.71,
+    "environmental_sound": 10.0
+   }
+  },
+  "T@0.1": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 27.33,
+   "by_type": {
+    "speaker_information": 37.5,
+    "paralinguistic_information": 21.43,
+    "environmental_sound": 27.5
+   }
+  },
+  "T@0.25": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 28.33,
+   "by_type": {
+    "speaker_information": 38.75,
+    "paralinguistic_information": 22.86,
+    "environmental_sound": 27.5
+   }
+  },
+  "T@0.5": {
+   "n": 300,
+   "failed": 0,
+   "fail_rate": 0.0,
+   "acc": 28.33,
+   "by_type": {
+    "speaker_information": 36.25,
+    "paralinguistic_information": 23.57,
+    "environmental_sound": 28.75
+   }
+  }
+ },
+ "equal_weight_by_type_dG_pp": 0.65,
+ "contrasts": {
+  "H1 F-T@0.25": {
+   "n": 300,
+   "clusters": 48,
+   "diff_pp": -0.33,
+   "se_pp": 2.66,
+   "L_pp": -5.43,
+   "U_pp": 5.66,
+   "p_one_sided": 0.59804,
+   "discordance": 0.157,
+   "loo_range_pp": [
+    -2.11,
+    0.71
+   ]
+  },
+  "H2 G-T@0.25": {
+   "n": 300,
+   "clusters": 48,
+   "diff_pp": 0.67,
+   "se_pp": 2.03,
+   "L_pp": -3.2,
+   "U_pp": 5.64,
+   "p_one_sided": 0.43956,
+   "discordance": 0.12,
+   "loo_range_pp": [
+    -0.7,
+    1.5
+   ]
+  },
+  "G-Gmm@0.25": {
+   "n": 293,
+   "clusters": 47,
+   "diff_pp": 1.02,
+   "se_pp": 1.75,
+   "L_pp": -2.3,
+   "U_pp": 3.95,
+   "p_one_sided": 0.36816,
+   "discordance": 0.14,
+   "loo_range_pp": [
+    0.38,
+    1.81
+   ]
+  },
+  "G-T@0.5 (secondary)": {
+   "n": 300,
+   "clusters": 48,
+   "diff_pp": 1.0,
+   "se_pp": 1.55,
+   "L_pp": -2.02,
+   "U_pp": 3.7,
+   "p_one_sided": 0.33547,
+   "discordance": 0.123,
+   "loo_range_pp": [
+    0.35,
+    1.68
+   ]
+  },
+  "G-T@0.1 (exploratory)": {
+   "n": 300,
+   "clusters": 48,
+   "diff_pp": 1.67,
+   "se_pp": 1.7,
+   "L_pp": -2.1,
+   "U_pp": 5.09,
+   "p_one_sided": 0.23858,
+   "discordance": 0.097,
+   "loo_range_pp": [
+    0.79,
+    2.38
+   ]
+  },
+  "F-E@0.25 (exploratory)": {
+   "n": 300,
+   "clusters": 48,
+   "diff_pp": -3.0,
+   "se_pp": 2.25,
+   "L_pp": -7.98,
+   "U_pp": 0.93,
+   "p_one_sided": 0.92951,
+   "discordance": 0.143,
+   "loo_range_pp": [
+    -4.14,
+    -2.05
+   ]
+  },
+  "G-T@0.25 speaker_information (exploratory)": {
+   "n": 80,
+   "clusters": 10,
+   "diff_pp": -3.75,
+   "se_pp": 6.11,
+   "L_pp": -18.84,
+   "U_pp": 16.48,
+   "p_one_sided": 0.78502,
+   "discordance": 0.163,
+   "loo_range_pp": [
+    -8.7,
+    0.0
+   ]
+  },
+  "G-T@0.25 paralinguistic_information (exploratory)": {
+   "n": 140,
+   "clusters": 13,
+   "diff_pp": 0.71,
+   "se_pp": 3.68,
+   "L_pp": -7.01,
+   "U_pp": 12.91,
+   "p_one_sided": 0.49395,
+   "discordance": 0.121,
+   "loo_range_pp": [
+    -2.54,
+    2.54
+   ]
+  },
+  "G-T@0.25 environmental_sound (exploratory)": {
+   "n": 80,
+   "clusters": 42,
+   "diff_pp": 5.0,
+   "se_pp": 3.06,
+   "L_pp": -0.18,
+   "U_pp": 13.76,
+   "p_one_sided": 0.10769,
+   "discordance": 0.075,
+   "loo_range_pp": [
+    3.8,
+    6.49
+   ]
+  }
+ },
+ "H1_pass": false,
+ "decision": "NO-CUE"
+}

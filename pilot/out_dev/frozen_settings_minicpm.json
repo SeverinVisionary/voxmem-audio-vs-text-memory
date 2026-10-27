@@ -1,0 +1,9 @@
+{
+ "settings": {
+  "writer": "D",
+  "fmt": "kv",
+  "extra": "prosody",
+  "grule": "reservoir"
+ },
+ "rule": "max mean gold lp_sum; ties -> earlier candidate"
+}

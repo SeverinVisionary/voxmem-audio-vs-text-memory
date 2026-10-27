@@ -1,0 +1,507 @@
+{
+ "frontier": {
+  "A": {
+   "acc": 28.33,
+   "se": 2.6,
+   "memory_positions_median": 2666.0,
+   "audio_share_median": 0.569,
+   "kv_mib_median": 374.9,
+   "storage_kib_median_approx": 4454.7
+  },
+  "E@0.1": {
+   "acc": 28.0,
+   "se": 2.59,
+   "memory_positions_median": 3630.0,
+   "audio_share_median": 0.035,
+   "kv_mib_median": 510.5,
+   "storage_kib_median_approx": 397.4
+  },
+  "E@0.25": {
+   "acc": 31.0,
+   "se": 2.67,
+   "memory_positions_median": 3872.5,
+   "audio_share_median": 0.09,
+   "kv_mib_median": 544.6,
+   "storage_kib_median_approx": 1036.6
+  },
+  "E@0.5": {
+   "acc": 28.0,
+   "se": 2.59,
+   "memory_positions_median": 4253.0,
+   "audio_share_median": 0.17,
+   "kv_mib_median": 598.1,
+   "storage_kib_median_approx": 2124.6
+  },
+  "F": {
+   "acc": 28.0,
+   "se": 2.59,
+   "memory_positions_median": 5423.5,
+   "audio_share_median": 0.28,
+   "kv_mib_median": 762.7,
+   "storage_kib_median_approx": 4465.5
+  },
+  "G@0.1": {
+   "acc": 29.0,
+   "se": 2.62,
+   "memory_positions_median": 3630.0,
+   "audio_share_median": 0.036,
+   "kv_mib_median": 510.5,
+   "storage_kib_median_approx": 403.1
+  },
+  "G@0.25": {
+   "acc": 29.0,
+   "se": 2.62,
+   "memory_positions_median": 3872.5,
+   "audio_share_median": 0.091,
+   "kv_mib_median": 544.6,
+   "storage_kib_median_approx": 1041.7
+  },
+  "G@0.5": {
+   "acc": 29.33,
+   "se": 2.63,
+   "memory_positions_median": 4253.5,
+   "audio_share_median": 0.17,
+   "kv_mib_median": 598.1,
+   "storage_kib_median_approx": 2128.9
+  },
+  "Gmm@0.25": {
+   "acc": 28.33,
+   "se": 2.63,
+   "memory_positions_median": 3861,
+   "audio_share_median": 0.079,
+   "kv_mib_median": 543.0,
+   "storage_kib_median_approx": 928.6
+  },
+  "N": {
+   "acc": 8.33,
+   "se": 1.6,
+   "memory_positions_median": 0.0,
+   "audio_share_median": 0.0,
+   "kv_mib_median": 0.0,
+   "storage_kib_median_approx": 0.0
+  },
+  "T@0.1": {
+   "acc": 27.33,
+   "se": 2.57,
+   "memory_positions_median": 3630.5,
+   "audio_share_median": 0.0,
+   "kv_mib_median": 510.5,
+   "storage_kib_median_approx": 14.2
+  },
+  "T@0.25": {
+   "acc": 28.33,
+   "se": 2.6,
+   "memory_positions_median": 3872.5,
+   "audio_share_median": 0.0,
+   "kv_mib_median": 544.6,
+   "storage_kib_median_approx": 15.1
+  },
+  "T@0.5": {
+   "acc": 28.33,
+   "se": 2.6,
+   "memory_positions_median": 4253.5,
+   "audio_share_median": 0.0,
+   "kv_mib_median": 598.1,
+   "storage_kib_median_approx": 16.6
+  }
+ },
+ "equivalence": {
+  "dG_U_pp": 5.64,
+  "dG_L_pp": -3.2,
+  "statement": "text memory non-inferior to old audio at margin 5.64 pp (95% two-sided bootstrap-t upper bound of \u0394G@0.25)"
+ },
+ "strata": {
+  "type=environmental_sound": {
+   "n": 80,
+   "G-T@0.25": {
+    "diff_pp": 5.0,
+    "L_pp": -0.12,
+    "U_pp": 13.58,
+    "discordance": 0.075
+   },
+   "F-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": -7.1,
+    "U_pp": 7.2,
+    "discordance": 0.1
+   },
+   "A-T@0.25": {
+    "diff_pp": -6.25,
+    "L_pp": -24.61,
+    "U_pp": 8.2,
+    "discordance": 0.362
+   },
+   "acc": {
+    "N": 10.0,
+    "A": 21.2,
+    "T@0.25": 27.5,
+    "G@0.25": 32.5,
+    "F": 27.5
+   }
+  },
+  "type=paralinguistic_information": {
+   "n": 140,
+   "G-T@0.25": {
+    "diff_pp": 0.71,
+    "L_pp": -7.07,
+    "U_pp": 13.3,
+    "discordance": 0.121
+   },
+   "F-T@0.25": {
+    "diff_pp": 0.71,
+    "L_pp": -6.01,
+    "U_pp": 6.74,
+    "discordance": 0.15
+   },
+   "A-T@0.25": {
+    "diff_pp": 0.71,
+    "L_pp": -8.36,
+    "U_pp": 11.72,
+    "discordance": 0.193
+   },
+   "acc": {
+    "N": 5.7,
+    "A": 23.6,
+    "T@0.25": 22.9,
+    "G@0.25": 23.6,
+    "F": 23.6
+   }
+  },
+  "type=speaker_information": {
+   "n": 80,
+   "G-T@0.25": {
+    "diff_pp": -3.75,
+    "L_pp": -18.65,
+    "U_pp": 16.8,
+    "discordance": 0.163
+   },
+   "F-T@0.25": {
+    "diff_pp": -2.5,
+    "L_pp": -14.04,
+    "U_pp": 18.91,
+    "discordance": 0.225
+   },
+   "A-T@0.25": {
+    "diff_pp": 5.0,
+    "L_pp": -8.01,
+    "U_pp": 27.11,
+    "discordance": 0.2
+   },
+   "acc": {
+    "N": 11.2,
+    "A": 43.8,
+    "T@0.25": 38.8,
+    "G@0.25": 35.0,
+    "F": 36.2
+   }
+  },
+  "operation=information_extraction": {
+   "n": 146,
+   "G-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": -8.53,
+    "U_pp": 13.11,
+    "discordance": 0.178
+   },
+   "F-T@0.25": {
+    "diff_pp": 0.68,
+    "L_pp": -6.97,
+    "U_pp": 16.22,
+    "discordance": 0.199
+   },
+   "A-T@0.25": {
+    "diff_pp": -0.68,
+    "L_pp": -8.63,
+    "U_pp": 6.58,
+    "discordance": 0.281
+   },
+   "acc": {
+    "N": 4.1,
+    "A": 32.9,
+    "T@0.25": 33.6,
+    "G@0.25": 33.6,
+    "F": 34.2
+   }
+  },
+  "operation=multi_session_reasoning": {
+   "n": 86,
+   "G-T@0.25": {
+    "diff_pp": 2.33,
+    "L_pp": -4.39,
+    "U_pp": 12.11,
+    "discordance": 0.116
+   },
+   "F-T@0.25": {
+    "diff_pp": -2.33,
+    "L_pp": -15.59,
+    "U_pp": 8.62,
+    "discordance": 0.209
+   },
+   "A-T@0.25": {
+    "diff_pp": -4.65,
+    "L_pp": -15.45,
+    "U_pp": 8.27,
+    "discordance": 0.302
+   },
+   "acc": {
+    "N": 20.9,
+    "A": 32.6,
+    "T@0.25": 37.2,
+    "G@0.25": 39.5,
+    "F": 34.9
+   }
+  },
+  "operation=temporal_evolution_tracking": {
+   "n": 68,
+   "G-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": 0.0,
+    "U_pp": 0.0,
+    "discordance": 0.0
+   },
+   "F-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": 0.0,
+    "U_pp": 0.0,
+    "discordance": 0.0
+   },
+   "A-T@0.25": {
+    "diff_pp": 7.35,
+    "L_pp": 2.24,
+    "U_pp": 16.29,
+    "discordance": 0.074
+   },
+   "acc": {
+    "N": 1.5,
+    "A": 13.2,
+    "T@0.25": 5.9,
+    "G@0.25": 5.9,
+    "F": 5.9
+   }
+  },
+  "answer=categorical": {
+   "n": 148,
+   "G-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": -4.24,
+    "U_pp": 4.22,
+    "discordance": 0.054
+   },
+   "F-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": -4.22,
+    "U_pp": 4.36,
+    "discordance": 0.054
+   },
+   "A-T@0.25": {
+    "diff_pp": 2.03,
+    "L_pp": -5.7,
+    "U_pp": 9.03,
+    "discordance": 0.142
+   },
+   "acc": {
+    "N": 2.7,
+    "A": 15.5,
+    "T@0.25": 13.5,
+    "G@0.25": 13.5,
+    "F": 13.5
+   }
+  },
+  "answer=number": {
+   "n": 24,
+   "G-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": 0.0,
+    "U_pp": 0.0,
+    "discordance": 0.083
+   },
+   "F-T@0.25": {
+    "diff_pp": 16.67,
+    "L_pp": 2.1,
+    "U_pp": 33.94,
+    "discordance": 0.167
+   },
+   "A-T@0.25": {
+    "diff_pp": 4.17,
+    "L_pp": -23.33,
+    "U_pp": 29.79,
+    "discordance": 0.375
+   },
+   "acc": {
+    "N": 20.8,
+    "A": 45.8,
+    "T@0.25": 41.7,
+    "G@0.25": 41.7,
+    "F": 58.3
+   }
+  },
+  "answer=ordered_list": {
+   "n": 24,
+   "G-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": 0.0,
+    "U_pp": 0.0,
+    "discordance": 0.0
+   },
+   "F-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": 0.0,
+    "U_pp": 0.0,
+    "discordance": 0.0
+   },
+   "A-T@0.25": {
+    "diff_pp": 0.0,
+    "L_pp": 0.0,
+    "U_pp": 0.0,
+    "discordance": 0.0
+   },
+   "acc": {
+    "N": 0.0,
+    "A": 0.0,
+    "T@0.25": 0.0,
+    "G@0.25": 0.0,
+    "F": 0.0
+   }
+  },
+  "answer=short_text": {
+   "n": 54,
+   "G-T@0.25": {
+    "diff_pp": 1.85,
+    "L_pp": -20.45,
+    "U_pp": 20.95,
+    "discordance": 0.315
+   },
+   "F-T@0.25": {
+    "diff_pp": 1.85,
+    "L_pp": -20.03,
+    "U_pp": 30.85,
+    "discordance": 0.389
+   },
+   "A-T@0.25": {
+    "diff_pp": 1.85,
+    "L_pp": -11.19,
+    "U_pp": 16.06,
+    "discordance": 0.463
+   },
+   "acc": {
+    "N": 5.6,
+    "A": 61.1,
+    "T@0.25": 59.3,
+    "G@0.25": 61.1,
+    "F": 61.1
+   }
+  },
+  "answer=yes_no": {
+   "n": 50,
+   "G-T@0.25": {
+    "diff_pp": 2.0,
+    "L_pp": -6.53,
+    "U_pp": 11.51,
+    "discordance": 0.18
+   },
+   "F-T@0.25": {
+    "diff_pp": -12.0,
+    "L_pp": -31.72,
+    "U_pp": -0.35,
+    "discordance": 0.28
+   },
+   "A-T@0.25": {
+    "diff_pp": -10.0,
+    "L_pp": -25.83,
+    "U_pp": 6.22,
+    "discordance": 0.34
+   },
+   "acc": {
+    "N": 26.0,
+    "A": 36.0,
+    "T@0.25": 46.0,
+    "G@0.25": 48.0,
+    "F": 34.0
+   }
+  },
+  "recency=early (< 0.33)": {
+   "n": 62,
+   "G-T@0.25": {
+    "diff_pp": -8.06,
+    "L_pp": -25.38,
+    "U_pp": 4.16,
+    "discordance": 0.21
+   },
+   "F-T@0.25": {
+    "diff_pp": -9.68,
+    "L_pp": -24.31,
+    "U_pp": 6.3,
+    "discordance": 0.194
+   },
+   "A-T@0.25": {
+    "diff_pp": -1.61,
+    "L_pp": -10.8,
+    "U_pp": 6.76,
+    "discordance": 0.242
+   },
+   "acc": {
+    "N": 4.8,
+    "A": 38.7,
+    "T@0.25": 40.3,
+    "G@0.25": 32.3,
+    "F": 30.6
+   }
+  },
+  "recency=middle": {
+   "n": 60,
+   "G-T@0.25": {
+    "diff_pp": 1.67,
+    "L_pp": -2.28,
+    "U_pp": 7.53,
+    "discordance": 0.117
+   },
+   "F-T@0.25": {
+    "diff_pp": 5.0,
+    "L_pp": -3.8,
+    "U_pp": 16.21,
+    "discordance": 0.15
+   },
+   "A-T@0.25": {
+    "diff_pp": -6.67,
+    "L_pp": -19.63,
+    "U_pp": 2.69,
+    "discordance": 0.2
+   },
+   "acc": {
+    "N": 8.3,
+    "A": 16.7,
+    "T@0.25": 23.3,
+    "G@0.25": 25.0,
+    "F": 28.3
+   }
+  },
+  "recency=recent (\u2265 0.67)": {
+   "n": 178,
+   "G-T@0.25": {
+    "diff_pp": 3.37,
+    "L_pp": -0.36,
+    "U_pp": 6.28,
+    "discordance": 0.09
+   },
+   "F-T@0.25": {
+    "diff_pp": 1.12,
+    "L_pp": -4.29,
+    "U_pp": 6.63,
+    "discordance": 0.146
+   },
+   "A-T@0.25": {
+    "diff_pp": 2.81,
+    "L_pp": -5.09,
+    "U_pp": 11.96,
+    "discordance": 0.253
+   },
+   "acc": {
+    "N": 9.6,
+    "A": 28.7,
+    "T@0.25": 25.8,
+    "G@0.25": 29.2,
+    "F": 27.0
+   }
+  }
+ }
+}

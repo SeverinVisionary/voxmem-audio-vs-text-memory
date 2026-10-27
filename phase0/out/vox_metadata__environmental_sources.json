@@ -1,0 +1,325 @@
+{
+  "clips": [
+    {
+      "asset_id": "ESC50_1-100032-A-0",
+      "category": "dog",
+      "clip_license": "CC0",
+      "esc50_clip": "1-100032-A-0.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-100038-A-14",
+      "category": "chirping_birds",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-100038-A-14.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-100210-A-36",
+      "category": "vacuum_cleaner",
+      "clip_license": "CC-BY-NC",
+      "esc50_clip": "1-100210-A-36.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-101296-A-19",
+      "category": "thunderstorm",
+      "clip_license": "CC0",
+      "esc50_clip": "1-101296-A-19.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-101336-A-30",
+      "category": "door_wood_knock",
+      "clip_license": "CC-BY-NC",
+      "esc50_clip": "1-101336-A-30.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-101404-A-34",
+      "category": "can_opening",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-101404-A-34.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-103298-A-9",
+      "category": "crow",
+      "clip_license": "CC-Sampling+",
+      "esc50_clip": "1-103298-A-9.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-104089-A-22",
+      "category": "clapping",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-104089-A-22.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-115545-A-48",
+      "category": "fireworks",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-115545-A-48.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-116765-A-41",
+      "category": "chainsaw",
+      "clip_license": "CC0",
+      "esc50_clip": "1-116765-A-41.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-11687-A-47",
+      "category": "airplane",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-11687-A-47.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-118206-A-31",
+      "category": "mouse_click",
+      "clip_license": "CC0",
+      "esc50_clip": "1-118206-A-31.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-118559-A-17",
+      "category": "pouring_water",
+      "clip_license": "CC0",
+      "esc50_clip": "1-118559-A-17.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-119125-A-45",
+      "category": "train",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-119125-A-45.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-121951-A-8",
+      "category": "sheep",
+      "clip_license": "CC0",
+      "esc50_clip": "1-121951-A-8.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-12653-A-15",
+      "category": "water_drops",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-12653-A-15.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-13571-A-46",
+      "category": "church_bells",
+      "clip_license": "CC-BY-NC",
+      "esc50_clip": "1-13571-A-46.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-13613-A-37",
+      "category": "clock_alarm",
+      "clip_license": "CC0",
+      "esc50_clip": "1-13613-A-37.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-137-A-32",
+      "category": "keyboard_typing",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-137-A-32.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-137296-A-16",
+      "category": "wind",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-137296-A-16.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-155858-A-25",
+      "category": "footsteps",
+      "clip_license": "CC0",
+      "esc50_clip": "1-155858-A-25.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-15689-A-4",
+      "category": "frog",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-15689-A-4.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-16568-A-3",
+      "category": "cow",
+      "clip_license": "CC-BY-NC",
+      "esc50_clip": "1-16568-A-3.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-17092-A-27",
+      "category": "brushing_teeth",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-17092-A-27.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-17124-A-43",
+      "category": "car_horn",
+      "clip_license": "CC0",
+      "esc50_clip": "1-17124-A-43.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-17150-A-12",
+      "category": "crackling_fire",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-17150-A-12.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-172649-A-40",
+      "category": "helicopter",
+      "clip_license": "CC0",
+      "esc50_clip": "1-172649-A-40.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-17295-A-29",
+      "category": "drinking_sipping",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-17295-A-29.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-17367-A-10",
+      "category": "rain",
+      "clip_license": "CC0",
+      "esc50_clip": "1-17367-A-10.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-17585-A-7",
+      "category": "insects",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-17585-A-7.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-18074-A-6",
+      "category": "hen",
+      "clip_license": "CC-BY-NC",
+      "esc50_clip": "1-18074-A-6.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-18527-A-44",
+      "category": "engine",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-18527-A-44.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-187207-A-20",
+      "category": "crying_baby",
+      "clip_license": "CC0",
+      "esc50_clip": "1-187207-A-20.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-18810-A-49",
+      "category": "hand_saw",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-18810-A-49.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-20133-A-39",
+      "category": "glass_breaking",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-20133-A-39.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-20736-A-18",
+      "category": "toilet_flush",
+      "clip_license": "CC-Sampling+",
+      "esc50_clip": "1-20736-A-18.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-208757-A-2",
+      "category": "pig",
+      "clip_license": "CC0",
+      "esc50_clip": "1-208757-A-2.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-21896-A-35",
+      "category": "washing_machine",
+      "clip_license": "CC-Sampling+",
+      "esc50_clip": "1-21896-A-35.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-21934-A-38",
+      "category": "clock_tick",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-21934-A-38.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-26806-A-1",
+      "category": "rooster",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-26806-A-1.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-28135-A-11",
+      "category": "sea_waves",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-28135-A-11.wav",
+      "in_esc10_subset": true
+    },
+    {
+      "asset_id": "ESC50_1-31482-A-42",
+      "category": "siren",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-31482-A-42.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-34094-A-5",
+      "category": "cat",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-34094-A-5.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-51805-A-33",
+      "category": "door_wood_creaks",
+      "clip_license": "CC0",
+      "esc50_clip": "1-51805-A-33.wav",
+      "in_esc10_subset": false
+    },
+    {
+      "asset_id": "ESC50_1-57316-A-13",
+      "category": "crickets",
+      "clip_license": "CC-BY",
+      "esc50_clip": "1-57316-A-13.wav",
+      "in_esc10_subset": false
+    }
+  ],
+  "source_dataset": {
+    "dataset_license": "CC BY-NC 3.0 (the ESC-10 subset is CC BY 3.0)",
+    "dataset_name": "ESC-50",
+    "dataset_ref": "doi:10.7910/DVN/YDEPUT",
+    "note": "Individual clips carry their own Freesound licences, listed per clip below. Clips that are not CC0 or CC-BY restrict how the sessions mixed from them may be reused."
+  }
+}
