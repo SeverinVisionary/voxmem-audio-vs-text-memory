@@ -371,6 +371,81 @@
    }
   }
  },
+ "post_hoc": {
+  "test T@0.25-A": {
+   "n": 300,
+   "clusters": 48,
+   "diff_pp": 0.0,
+   "se_pp": 3.06,
+   "L_pp": -6.02,
+   "U_pp": 5.97,
+   "p_one_sided": 0.53505,
+   "discordance": 0.24,
+   "loo_range_pp": [
+    -1.36,
+    1.76
+   ]
+  },
+  "holdout T@0.25-A": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 0.7,
+   "se_pp": 3.83,
+   "L_pp": -6.34,
+   "U_pp": 8.31,
+   "p_one_sided": 0.49275,
+   "discordance": 0.218,
+   "loo_range_pp": [
+    -0.71,
+    2.42
+   ]
+  },
+  "gemini T@0.25-A": {
+   "n": 48,
+   "clusters": 20,
+   "diff_pp": 2.08,
+   "se_pp": 7.99,
+   "L_pp": -13.72,
+   "U_pp": 19.1,
+   "p_one_sided": 0.49305,
+   "discordance": 0.354,
+   "loo_range_pp": [
+    -2.5,
+    4.65
+   ]
+  },
+  "gemini invalid runs as answered": {
+   "failed": {},
+   "A_minus_asr": {
+    "n": 48,
+    "clusters": 20,
+    "diff_pp": 14.58,
+    "se_pp": 6.91,
+    "L_pp": 1.52,
+    "U_pp": 26.95,
+    "p_one_sided": 0.05699,
+    "discordance": 0.229,
+    "loo_range_pp": [
+     11.11,
+     17.5
+    ]
+   },
+   "DiD": {
+    "n": 48,
+    "clusters": 20,
+    "diff_pp": 12.5,
+    "se_pp": 8.29,
+    "L_pp": 0.35,
+    "U_pp": 34.12,
+    "p_one_sided": 0.13099,
+    "discordance": 0.271,
+    "loo_range_pp": [
+     6.52,
+     15.22
+    ]
+   }
+  }
+ },
  "agreement": {
   "test": {
    "judge1_vs_matcher_pct_by_arm": {

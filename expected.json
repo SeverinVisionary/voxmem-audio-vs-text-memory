@@ -492,6 +492,26 @@
   "agreement/gemini/judge1_vs_matcher_pct_by_arm/M:asr": 15.2,
   "agreement/gemini/judge1_vs_matcher_pct_by_arm/T@0.25": 22.9,
   "agreement/gemini/judge1_vs_matcher_pct_by_arm/G@0.25": 29.2,
-  "agreement/gemini/judge1_vs_matcher_pct_by_arm/F": 22.9
+  "agreement/gemini/judge1_vs_matcher_pct_by_arm/F": 22.9,
+  "post_hoc/test T@0.25-A/diff_pp": 0.0,
+  "post_hoc/test T@0.25-A/L_pp": -6.02,
+  "post_hoc/test T@0.25-A/U_pp": 5.97,
+  "post_hoc/test T@0.25-A/p_one_sided": 0.53505,
+  "post_hoc/holdout T@0.25-A/diff_pp": 0.7,
+  "post_hoc/holdout T@0.25-A/L_pp": -6.34,
+  "post_hoc/holdout T@0.25-A/U_pp": 8.31,
+  "post_hoc/holdout T@0.25-A/p_one_sided": 0.49275,
+  "post_hoc/gemini T@0.25-A/diff_pp": 2.08,
+  "post_hoc/gemini T@0.25-A/L_pp": -13.72,
+  "post_hoc/gemini T@0.25-A/U_pp": 19.1,
+  "post_hoc/gemini T@0.25-A/p_one_sided": 0.49305,
+  "post_hoc/gemini invalid runs as answered/A_minus_asr/diff_pp": 14.58,
+  "post_hoc/gemini invalid runs as answered/A_minus_asr/L_pp": 1.52,
+  "post_hoc/gemini invalid runs as answered/A_minus_asr/U_pp": 26.95,
+  "post_hoc/gemini invalid runs as answered/A_minus_asr/p_one_sided": 0.05699,
+  "post_hoc/gemini invalid runs as answered/DiD/diff_pp": 12.5,
+  "post_hoc/gemini invalid runs as answered/DiD/L_pp": 0.35,
+  "post_hoc/gemini invalid runs as answered/DiD/U_pp": 34.12,
+  "post_hoc/gemini invalid runs as answered/DiD/p_one_sided": 0.13099
  }
 }

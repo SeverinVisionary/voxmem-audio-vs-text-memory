@@ -21,6 +21,7 @@ SHA-256 of the files as frozen; the shipped copies are byte-identical except whe
 | `pilot/frozen_minicpm.json` | e96d7e1 | `4a385c8d0b165c208c61fc8d88d85e1b6b0486d1af938759d797ff440b7f44df` |
 | `phase0/splits_8k.csv` (CRLF line ends) | before v1 | `08f48e3f8187a1e8f9cbf9c521fd3733e19863b9c68ca0a9911540d5a514a25f` |
 | `pilot/analyze_holdout.py` | e10bc52 | `0a19269b8ecee8c4b07c0ae8066967ceb520cb14744c9d4dba3eb0eda1c01c20` |
+| `pilot/memory.py` as used for Phase 1 (not shipped; later versions add the Phase 1b writers) | e96d7e1 | `ec814669409f3ac034c748cc41ba7e81f9265e7578608deffd46372b3d9c6203` |
 | `pilot/memory.py` | e10bc52 | `82c2b2642269c5a5ac19ff2f1f567cdd8d9a8dd2ce376633555f13a3082558ff` |
 | `PREREG_HOLDOUT.md` | e10bc52 | `5ad2e8358e61283f26a181aa63ce2a8399497f185606db4ab642c6003290c3fc` (see below) |
 

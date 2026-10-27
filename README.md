@@ -13,6 +13,8 @@ self-attested; it lists the internal material the preregistrations mention that 
 ## Results
 
 All numbers are percentage points (pp) with 95% intervals, scored by the first judge unless stated.
+The first judge is `gemini-3.8-flash-high` for MiniCPM-o answers and `claude-opus-5-5` for Gemini's answers,
+so that Gemini does not grade itself.
 
 **Phase 1 (test, MiniCPM-o 4.5): the H1 gate is not passed (decision NO-CUE).** Adding the whole old-audio
 history on top of the best text memory shows no detectable benefit: F − T\* = −0.3 (−5.4 to +5.7),
@@ -33,14 +35,16 @@ Every memory arm, text or audio, scores 27–31%; question only 8%; the full aud
 
 **Strong-reader ceiling (48 holdout families; preregistered as exploratory).** Gemini 3.8 Flash, run through
 the `agy` agent harness, gains from audio over the transcript: A − M:asr = +18.8 (6.6 to 31.7), against +2.1
-for MiniCPM-o on the same families; difference between readers +16.7 (5.6 to 43.7). The text memory with
-acoustic labels (T\*, 43.8%) matches full audio (A, 41.7%) for Gemini as well. Old audio on top of T\* adds
+for MiniCPM-o on the same families; difference between readers +16.7 (5.6 to 43.7). The two readers have different first judges; with the
+same deterministic matcher for both, the difference is +14.6 (4.8 to 31.3). The text memory with acoustic
+labels (T\*, 43.8%) has accuracy similar to full audio (A, 41.7%), but the paired interval is wide:
+T\* − A = +2.1 (−13.7 to +19.1). Old audio on top of T\* adds
 +2.1 at matched positions (G; −7.1 to +10.3) and +6.3 over budget (F; −6.4 to +25.7). At n = 48 these
 intervals do not exclude a sizeable gain.
 
-Reading: the benchmark's acoustic questions need acoustic information. Gemini extracts it from the audio and
-MiniCPM-o mostly does not. A compact text memory with acoustic labels matches the full audio history for
-both readers, at about 1/300 of the storage of the raw audio. It takes about 45% more KV positions, because
+Reading: the benchmark's acoustic questions need acoustic information. Gemini, through `agy`, extracts it from the audio
+and MiniCPM-o mostly does not. For MiniCPM-o a compact text memory with acoustic labels is as accurate as
+the full audio history (T\* − A = 0.0, −6.0 to +6.0 on test; +0.7, −6.3 to +8.3 on holdout), at about 1/300 of the storage of the raw audio. It takes about 45% more KV positions, because
 the labels are verbose. Whether old audio adds anything beyond such a memory is bounded for MiniCPM-o (under
 6 pp at matched positions) but not settled for Gemini.
 
@@ -53,7 +57,7 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
 - A causal account of why MiniCPM-o makes little use of the audio.
 - Public verification of the preregistration timing (see `PROVENANCE.md`).
 - The frontier, the Phase 1 equivalence margin (5.6 pp) and the strata (`pilot/analyze_extra.py`), and the
-  scoring-sensitivity analysis (`pilot/analyze_scoring.py`), are post hoc.
+  scoring-sensitivity analysis and T\* − A contrasts (`pilot/analyze_scoring.py`), are post hoc.
 
 ## Limitations
 
@@ -71,10 +75,10 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
   (`pilot/judge.py`), not VoxMem's per-item normalisation.
 - **Tuning asymmetry.** On the dev split the text memory got about nine screened settings and the
   audio-selection policy two (`PREREGISTRATION.md` §7). This favours the text baseline.
-- **Resampling units.** Families sharing a voice or a background clip were to be merged. That left a giant
-  component (two components in all) on both splits, so the preregistered fallback, one source per family,
+- **Resampling units.** Families sharing a voice or a background clip were to be merged. That left one
+  component on test and three on holdout (the largest holding 87% of families), so the preregistered fallback, one source per family,
   was used: 48 units on test, 35 on holdout.
-  - Voice purity was 0.905 on test and 0.891 on holdout, below the 0.9 target.
+  - Voice purity was 0.905 on test (meets the 0.9 target) and 0.891 on holdout (below it).
   - Clip-match accuracy was 0.72 (n = 36) on test and 0.58 (n = 19) on holdout.
 - **Gemini harness.** The agent opens each clip with a file-read tool, so audio reaches the model as tool
   results rather than interleaved with the text. The model reasons over several steps, there is no
@@ -83,10 +87,20 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
   - A first pass let runs open other families' clips. The 17 affected runs were repeated with per-run
     folders, as logged in `PREREG_HOLDOUT.md` §5.
   - Both runs that stayed invalid are transcript-only (M:asr): the agent kept calling shell commands.
-    They are scored incorrect. Dropping those two families instead gives A − M:asr = +19.6, because both of
-    their A answers were wrong.
+    They are scored incorrect, as preregistered. Dropping those two families instead gives A − M:asr = +19.6.
+  - **The agent could reach the answer key.** The exported plans file, which holds the gold answers, sat
+    next to the audio on the same machine. Every run that used shell commands (6 in the first pass, 2 in
+    the final file, all transcript-only) answered exactly the gold, some in the benchmark's label form
+    (`toilet_flush`). Valid runs were limited by the trace check to opening their own clips, and no valid
+    answer uses label form. Scoring the two final invalid runs as answered (correct) instead of incorrect
+    gives A − M:asr = +14.6 (1.5 to 26.9), p = 0.057, and a reader difference of +12.5 (0.3 to 34.1). Both
+    are in `SCORING_RESULTS.json` (`post_hoc`). Validity rests on the CLI's trace being complete: the check
+    counts finished tool steps and matches clip reads by file name. A rerun should strip the gold from the
+    plans and run the agent without shell access.
   - One G answer is a safety-filter refusal and is scored as given (incorrect).
 - **Smaller points.**
+  - The holdout preregistration's rule that more than 5% reader failures in A or M:asr invalidates B1 is
+    not coded in `analyze_holdout.py`; there were no failures, so it does not apply.
   - Assistant text turns are present in every history arm, A included.
   - At f = 0.5, 4 of 300 T\* items fall 43–534 positions short of budget because the text runs out. This
     affects a secondary contrast only.
@@ -118,11 +132,14 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
 It then compares every number pinned in `expected.json` (all arm accuracies, contrasts, decisions, frontier,
 strata and scoring sensitivity) and exits 3 on any difference.
 
-`bash reproduce.sh --negative` flips one verdict in a copy and requires exit 3 there.
+`bash reproduce.sh --negative` flips one verdict in each of the three verdict files
+(test, holdout, Gemini), each in its own copy, and requires exit 3 for each.
 
 Not covered by `reproduce.sh`:
 - the cluster statistics, which are read from `clusters.json`;
-- the Gemini rerun counts, which are logged in `PREREG_HOLDOUT.md`.
+- the Gemini rerun counts, which are logged in `PREREG_HOLDOUT.md`;
+- the T\*@0.5 budget shortfall and the +19.6 dropped-family figure, which can be read off
+  `pilot/out_test/arms_minicpm.jsonl` (`budget_gap`) and the Gemini files.
 
 Regenerating the outputs needs:
 - a 24 GB GPU;
