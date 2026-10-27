@@ -35,7 +35,9 @@ Every memory arm, text or audio, scores 27–31%; question only 8%; the full aud
 
 **Strong-reader ceiling (48 holdout families; preregistered as exploratory).** Gemini 3.8 Flash, run through
 the `agy` agent harness, gains from audio over the transcript: A − M:asr = +18.8 (6.6 to 31.7), against +2.1
-for MiniCPM-o on the same families; difference between readers +16.7 (5.6 to 43.7). The two readers have different first judges; with the
+for MiniCPM-o on the same families; difference between readers +16.7 (5.6 to 43.7). These count two invalid runs as incorrect, as
+preregistered; those runs could read the answer key, and counting them as answered gives +14.6 and +12.5
+(see Limitations, Gemini harness). The two readers have different first judges; with the
 same deterministic matcher for both, the difference is +14.6 (4.8 to 31.3). The text memory with acoustic
 labels (T\*, 43.8%) has accuracy similar to full audio (A, 41.7%), but the paired interval is wide:
 T\* − A = +2.1 (−13.7 to +19.1). Old audio on top of T\* adds
@@ -93,7 +95,8 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
     the final file, all transcript-only) answered exactly the gold, some in the benchmark's label form
     (`toilet_flush`). Valid runs were limited by the trace check to opening their own clips, and no valid
     answer uses label form. Scoring the two final invalid runs as answered (correct) instead of incorrect
-    gives A − M:asr = +14.6 (1.5 to 26.9), p = 0.057, and a reader difference of +12.5 (0.3 to 34.1). Both
+    gives A − M:asr = +14.6 (1.5 to 27.0), p = 0.057, and a reader difference of +12.5 (0.4 to 34.1). (Intervals
+    are bootstrap-t and p-values one-sided sign-flip, so they need not agree at the margin.) Both
     are in `SCORING_RESULTS.json` (`post_hoc`). Validity rests on the CLI's trace being complete: the check
     counts finished tool steps and matches clip reads by file name. A rerun should strip the gold from the
     plans and run the agent without shell access.
