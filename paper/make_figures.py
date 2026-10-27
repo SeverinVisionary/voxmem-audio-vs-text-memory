@@ -23,7 +23,7 @@ arms = [json.loads(l) for l in open(P + "out_test/arms_minicpm.jsonl")]
 def rd(x):
     """Round half up to one decimal, as in the text (26.95 -> +27.0)."""
     from decimal import ROUND_HALF_UP, Decimal
-    return f"{Decimal(str(x)).quantize(Decimal('0.1'), ROUND_HALF_UP):+}"
+    return f"{Decimal(str(x)).quantize(Decimal('0.1'), ROUND_HALF_UP):+}".replace("-", "\u2212")
 
 
 def composition():
