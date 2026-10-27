@@ -14,4 +14,5 @@ redistributed: `pilot/data.py` downloads it from the source above. ESC-50 per-cl
 at run time and does not redistribute them.
 
 The README, preregistrations, `PROVENANCE.md`, `BYTE_ACCOUNTING.md`, `expected.json` and
-`pilot/frozen_minicpm.json` are released under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+`pilot/frozen_minicpm.json`, and the paper in `paper/` (text and figures; `paper/make_figures.py` is MIT
+like the other code) are released under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).

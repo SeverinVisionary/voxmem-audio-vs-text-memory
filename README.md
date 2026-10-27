@@ -124,6 +124,8 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
   - Gemini outputs are in `gemini_arms.jsonl`; the first, shared-folder pass is in
     `gemini_arms_v1_shared_dir.jsonl`.
 - `phase0/`: the frozen split, plus the benchmark metadata and prompts the code reads.
+- `paper/`: the short paper (`note.tex`, `note.pdf`; Zenodo DOI 10.5281/zenodo.23682911) and
+  `make_figures.py`, which draws its figures from the files above (`cd paper && python3 make_figures.py`).
 - `BYTE_ACCOUNTING.md`: ledger definitions. `PROVENANCE.md`: freeze record.
 
 ## Reproduce
