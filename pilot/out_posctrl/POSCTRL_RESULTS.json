@@ -1,0 +1,213 @@
+{
+ "failed": {
+  "Ev-A": 0,
+  "Ev-M": 0,
+  "O": 0
+ },
+ "acc": {
+  "N": 15.49,
+  "A": 34.51,
+  "M:asr": 33.1,
+  "Ev-A": 42.25,
+  "Ev-M": 38.73,
+  "O": 40.85
+ },
+ "acc_by_type": {
+  "speaker_information": {
+   "N": 26.32,
+   "A": 68.42,
+   "M:asr": 65.79,
+   "Ev-A": 68.42,
+   "Ev-M": 65.79,
+   "O": 68.42
+  },
+  "paralinguistic_information": {
+   "N": 11.94,
+   "A": 28.36,
+   "M:asr": 23.88,
+   "Ev-A": 38.81,
+   "Ev-M": 32.84,
+   "O": 35.82
+  },
+  "environmental_sound": {
+   "N": 10.81,
+   "A": 10.81,
+   "M:asr": 16.22,
+   "Ev-A": 21.62,
+   "Ev-M": 21.62,
+   "O": 21.62
+  }
+ },
+ "P1 Ev-A-Ev-M": {
+  "n": 142,
+  "clusters": 35,
+  "diff_pp": 3.52,
+  "se_pp": 3.57,
+  "L_pp": -6.24,
+  "U_pp": 10.76,
+  "p_one_sided": 0.23378,
+  "discordance": 0.106,
+  "loo_range_pp": [
+   2.24,
+   6.45
+  ],
+  "unstratified": {
+   "L_pp": -6.21,
+   "U_pp": 10.76
+  }
+ },
+ "P1": "NOT-SHOWN",
+ "P2 O-M:asr": {
+  "n": 142,
+  "clusters": 35,
+  "diff_pp": 7.75,
+  "se_pp": 2.74,
+  "L_pp": 2.58,
+  "U_pp": 13.37,
+  "p_one_sided": 0.0137,
+  "discordance": 0.134,
+  "loo_range_pp": [
+   6.52,
+   8.96
+  ],
+  "unstratified": {
+   "L_pp": 2.61,
+   "U_pp": 13.39
+  }
+ },
+ "P2": "NOT-TESTED (estimate only)",
+ "length cost (Ev-A-Ev-M)-(A-M:asr)": {
+  "n": 142,
+  "clusters": 35,
+  "diff_pp": 2.11,
+  "se_pp": 4.73,
+  "L_pp": -11.29,
+  "U_pp": 10.92,
+  "p_one_sided": 0.40376,
+  "discordance": 0.169,
+  "loo_range_pp": [
+   0.74,
+   6.45
+  ]
+ },
+ "Ev-A-N": {
+  "n": 142,
+  "clusters": 35,
+  "diff_pp": 26.76,
+  "se_pp": 5.42,
+  "L_pp": 12.56,
+  "U_pp": 37.86,
+  "p_one_sided": 0.0001,
+  "discordance": 0.324,
+  "loo_range_pp": [
+   24.6,
+   30.65
+  ]
+ },
+ "Ev-M-N": {
+  "n": 142,
+  "clusters": 35,
+  "diff_pp": 23.24,
+  "se_pp": 3.75,
+  "L_pp": 15.2,
+  "U_pp": 30.66,
+  "p_one_sided": 0.0002,
+  "discordance": 0.303,
+  "loo_range_pp": [
+   21.64,
+   24.63
+  ]
+ },
+ "by_type": {
+  "speaker_information": {
+   "P1": {
+    "n": 38,
+    "clusters": 12,
+    "diff_pp": 2.63,
+    "se_pp": 2.21,
+    "L_pp": -1.66,
+    "U_pp": 3.23,
+    "p_one_sided": 0.49675,
+    "discordance": 0.026,
+    "loo_range_pp": [
+     0.0,
+     3.23
+    ]
+   },
+   "P2": {
+    "n": 38,
+    "clusters": 12,
+    "diff_pp": 2.63,
+    "se_pp": 2.21,
+    "L_pp": -1.54,
+    "U_pp": 3.29,
+    "p_one_sided": 0.49675,
+    "discordance": 0.026,
+    "loo_range_pp": [
+     0.0,
+     3.23
+    ]
+   }
+  },
+  "paralinguistic_information": {
+   "P1": {
+    "n": 67,
+    "clusters": 16,
+    "diff_pp": 5.97,
+    "se_pp": 6.66,
+    "L_pp": -16.52,
+    "U_pp": 19.77,
+    "p_one_sided": 0.25627,
+    "discordance": 0.149,
+    "loo_range_pp": [
+     3.28,
+     12.73
+    ]
+   },
+   "P2": {
+    "n": 67,
+    "clusters": 16,
+    "diff_pp": 11.94,
+    "se_pp": 5.01,
+    "L_pp": 1.25,
+    "U_pp": 24.69,
+    "p_one_sided": 0.0387,
+    "discordance": 0.179,
+    "loo_range_pp": [
+     9.38,
+     14.29
+    ]
+   }
+  },
+  "environmental_sound": {
+   "P1": {
+    "n": 37,
+    "clusters": 25,
+    "diff_pp": 0.0,
+    "se_pp": 5.41,
+    "L_pp": -10.66,
+    "U_pp": 10.76,
+    "p_one_sided": 0.68643,
+    "discordance": 0.108,
+    "loo_range_pp": [
+     -2.86,
+     2.86
+    ]
+   },
+   "P2": {
+    "n": 37,
+    "clusters": 25,
+    "diff_pp": 5.41,
+    "se_pp": 6.3,
+    "L_pp": -8.93,
+    "U_pp": 18.27,
+    "p_one_sided": 0.33977,
+    "discordance": 0.162,
+    "loo_range_pp": [
+     2.86,
+     8.57
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "judge2_where_seen": {
+  "P1 Ev-A-Ev-M": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 2.11,
+   "se_pp": 3.29,
+   "L_pp": -6.37,
+   "U_pp": 8.56,
+   "p_one_sided": 0.34897,
+   "discordance": 0.092,
+   "loo_range_pp": [
+    0.75,
+    4.84
+   ]
+  },
+  "P2 O-M:asr": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 7.04,
+   "se_pp": 2.69,
+   "L_pp": 1.98,
+   "U_pp": 12.68,
+   "p_one_sided": 0.0231,
+   "discordance": 0.127,
+   "loo_range_pp": [
+    5.8,
+    8.21
+   ]
+  }
+ },
+ "matcher": {
+  "P1 Ev-A-Ev-M": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 1.41,
+   "se_pp": 2.64,
+   "L_pp": -4.46,
+   "U_pp": 6.99,
+   "p_one_sided": 0.40256,
+   "discordance": 0.085,
+   "loo_range_pp": [
+    0.0,
+    3.23
+   ]
+  },
+  "P2 O-M:asr": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 4.23,
+   "se_pp": 2.51,
+   "L_pp": -2.02,
+   "U_pp": 8.65,
+   "p_one_sided": 0.13449,
+   "discordance": 0.099,
+   "loo_range_pp": [
+    3.17,
+    5.22
+   ]
+  }
+ }
+}

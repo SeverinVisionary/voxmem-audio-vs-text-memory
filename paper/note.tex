@@ -21,7 +21,9 @@ higher than with a plain transcript (95\% interval $-5.4$ to $+7.3$; 142 held-ou
 MiniCPM-o 4.5 the transcript is non-inferior to the audio at a preregistered 10-point margin, but only
 narrowly. On the same held-out families, trading part of a labelled text record for old clips at the same
 size in MiniCPM-o context positions moves accuracy by $+2.8$ points for MiniCPM-o and $+2.1$ for Qwen3-Omni;
-both intervals include zero. Gemini 3.8 Flash showed an audio gain in an exploratory run whose sealed rerun
+both intervals include zero. Given only the sessions that hold the answer, Qwen3-Omni is not shown to do
+better with their audio than with their transcript, so the result describes these readers rather than the
+recordings. Gemini 3.8 Flash showed an audio gain in an exploratory run whose sealed rerun
 did not finish. Stored as uncompressed audio, the recordings take about 300 times the bytes of the labelled text.
 \end{abstract}
 
@@ -44,8 +46,8 @@ text for old clips. If the audio carries something the labels miss, the trade sh
 readers it does not pay reliably. Qwen3-Omni does use its memory: the full audio history lifts it 19 points
 over no memory. Yet a plain transcript gets it to within 1.4 points of that.
 
-We run three preregistrations: MiniCPM-o 4.5 on 300 test and 142 held-out question families, then
-Qwen3-Omni on the same holdout. Gemini 3.8 Flash gained from audio in an exploratory run, and that result
+We run four preregistrations: MiniCPM-o 4.5 on 300 test and 142 held-out question families, then
+Qwen3-Omni on the same holdout, then a check of whether Qwen3-Omni uses old clips when given the right ones. Gemini 3.8 Flash gained from audio in an exploratory run, and that result
 stays open.
 
 \section{What we did}
@@ -186,8 +188,13 @@ Yet the median $T^*$ memory uses about 45\% more context positions than $A$.
 \section{Where this stops}
 
 We did not test a retained key--value cache. The freeze record comes from a private repository and is
-self-attested. No contrast shows that either open reader uses old clips at all, so ``audio adds
-nothing'' cannot be told apart from ``these readers cannot use old audio''. The resampling units come from
+self-attested. A fourth preregistered run asks whether Qwen3-Omni can use old clips at all. We keep only the
+sessions that hold the answer. With their audio it scores 42.3\%, with their transcript 38.7\%: a gain of
+$+3.5$ points ($-6.2$ to $+10.8$), not shown. Adding those sessions' clips to the full transcript gives
+$+7.7$ ($+2.6$ to $+13.4$), but it counts only as an estimate. The preregistered order tested it only
+after the first contrast passed, the memory is over budget, and the strict matcher gives $+4.2$ ($-2.0$ to $+8.7$). MiniCPM-o, given the
+same clips beside its labelled text, scored 3.1 points lower on 32 dev families. So neither open reader is shown to use old audio, and
+``a transcript is enough'' describes these readers, not the information in the recordings. The resampling units come from
 one dominant source per family; families in different units can still share a voice or clip, which can make
 the intervals too narrow. On the holdout, voice-cluster purity was 0.89 against a 0.9 target and
 clip-match accuracy 0.58 on 19 checked clips. For the open readers the judge and the matcher disagree most on $A$,

@@ -1,7 +1,7 @@
 # Provenance of the preregistrations
 
 The study was developed in a private repository. This public repository was first published after the first two
-studies and updated after the third, so its own history cannot show that anything was fixed in advance. What follows is the record from
+studies and updated after the third and fourth, so its own history cannot show that anything was fixed in advance. What follows is the record from
 the private repository; it is self-attested, and nothing here is independently timestamped.
 
 | Event | Private commit | Time (US Pacific) |
@@ -12,6 +12,8 @@ the private repository; it is self-attested, and nothing here is independently t
 | Phase 1b MiniCPM-o outputs committed, before judging | `f9b3c7e940c9ea3c19a10cfaf6d5f57b8879fa0e` | 2026-10-26 10:55 |
 | Qwen3-Omni preregistration frozen | `b900cf41227a520fdaf4f9f77d75f8ef29dc0c8b` | 2026-10-28 18:28 |
 | Qwen3-Omni outputs committed, before judging | `dc3a14f0bc742db8918cd15434529f91b45c27fb` | 2026-10-28 21:11 |
+| Positive-control preregistration frozen | `ea88e3591fb89ee296574daef6100b7430e8a269` | 2026-11-02 08:44 |
+| Positive-control outputs committed, before judging | `80ee194317917d24285cb37678b0207dffa46ba8` | 2026-11-02 09:00 |
 
 SHA-256 of the files as frozen; the shipped copies are byte-identical except where noted.
 
@@ -29,16 +31,22 @@ SHA-256 of the files as frozen; the shipped copies are byte-identical except whe
 | `PREREG_OMNI.md` | b900cf4 | `8ceaa8798d30414b015ae00ebdcf579708d178c00fb02c4676666e938e04a3c3` (see below) |
 | `pilot/omni_reader.py` | b900cf4 | `45c5fa65647afc090c15da44102db95800d35a674dc8aeb1e3c9363bf9eadf3f` |
 | `pilot/analyze_gemini_clean.py` | b900cf4 | `e3106a39882e3a5d6874ebe7a9ba7826b7838786a94b0bc1646f99b1b099365c` |
+| `PREREG_POSCTRL.md` | ea88e35 | `4fcbff653fbb83dc9fbc72ef39360d02395060ab51e54122ee6c71600054e748` (see below) |
+| `pilot/make_posctrl_plans.py` | ea88e35 | `84deb68910a1b808a0abc7c5d21ce998b3285db863877f9fc06971fc382bfb0c` |
+| `pilot/analyze_posctrl.py` | ea88e35 | `145a21749616086e94c1d5810964d95854356350a0edceb6c513cd4676face2c` |
 
 `PREREG_HOLDOUT.md` differs from its frozen form by one appended bullet under §5 (the Gemini deviation,
 starting "2026-10-26, before any Gemini answer was judged"), added after the freeze as that section requires.
 Deleting that bullet and the blank line before it restores the frozen bytes. `PREREG_OMNI.md` likewise
 differs by one appended §5 bullet (starting "2026-10-28, before any answer existed"), and deleting it with the
-blank line before it restores the frozen bytes.
+blank line before it restores the frozen bytes. `PREREG_POSCTRL.md` differs in §6 only: the frozen text there
+is the line "(none yet)", replaced after judging by one bullet (starting "2026-11-02, after the answers were
+judged"); putting that line back restores the frozen bytes.
 
 The preregistrations refer to material that is not released: planning and review notes (PLAN.md,
 reviews/), internal write-ups (pilot/DEV_RESULTS.md, pilot/TEST_RESULTS.md), the split script
 (phase0/split.py), the Colab notebooks and their builders, a private issue tracker (#1082), the abandoned sealed Gemini rerun's
 preregistration (PREREG_GEMINI_CLEAN.md) and the sealed plan archive the Qwen3-Omni run read
-(plans_clean.zip; it is regenerable with `run_dev.py`). The
+(plans_clean.zip; it is regenerable with `run_dev.py`). The positive control's plans are derived from that
+archive by `pilot/make_posctrl_plans.py`. The
 dev-split outputs those write-ups summarise are in `pilot/out_dev/`.

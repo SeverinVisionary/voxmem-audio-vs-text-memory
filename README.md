@@ -22,6 +22,8 @@ Qwen3-Omni's answers, so that Gemini does not grade itself.
 **Summary (v3).** Neither open reader shows a reliable gain from old audio over a plain transcript. Qwen3-Omni
 uses its memory (the full audio history beats no memory by 19.0 pp) but beats the transcript by only +1.4 (−5.4 to +7.3).
 The Gemini audio gain below is exploratory: a sealed rerun meant to confirm it was abandoned unscored.
+**v3.2:** a fourth preregistered run finds no evidence that Qwen3-Omni uses old clips even when given only the
+sessions that hold the answer, so "a transcript is enough" describes these readers, not the information in the audio.
 
 **Phase 1 (test, MiniCPM-o 4.5): the H1 gate is not passed (decision NO-CUE).** Adding the whole old-audio
 history on top of the best text memory shows no detectable benefit: F − T\* = −0.3 (−5.4 to +5.7),
@@ -54,6 +56,21 @@ M:asr 33.1%, T\* 28.9%, G 31.0%.
 - `analyze_gemini_clean.py` keeps its Gemini labels: in `OMNI_RESULTS.json`, "NOT-REPLICATED" is
   `PREREG_OMNI.md`'s NOT-SHOWN, and "C4 DiD (A-M:asr) gemini minus minicpm" is Qwen3-Omni minus MiniCPM-o.
 - The second judge (`claude-sonnet-5-5`) saw 208 answers and agreed with the first on 98.1%.
+
+**Positive control, Qwen3-Omni (holdout, 142 families; `PREREG_POSCTRL.md`).** Does the reader use old clips at
+all? Three new memories, built from the sealed v3 plans by `make_posctrl_plans.py`: Ev-A, only the sessions that
+hold the answer (VoxMem's evidence sessions) with user turns as audio; Ev-M, the same sessions as transcript;
+O, the full transcript plus the evidence sessions' clips (over budget). 426 runs, none failed. Question only,
+A and M:asr are reused from v3 after 20 replayed M:asr answers came out identical. Accuracy: Ev-A 42.3%,
+Ev-M 38.7%, O 40.8%.
+- P1 (primary): Ev-A − Ev-M = +3.5 (−6.2 to +10.8), one-sided p = 0.23: **NOT-SHOWN**. By type: speaker +2.6,
+  paralinguistic +6.0, environmental 0.0.
+- P2: O − M:asr = +7.7 (+2.6 to +13.4). The fixed sequence tests P2 only if P1 passes, so this is an estimate,
+  not a finding. O is over budget and has no mismatched-clip control. Post hoc (`analyze_posctrl_scoring.py`):
+  +7.0 (+2.0 to +12.7) with judge 2 where it saw the answer; +4.2 (−2.0 to +8.7) with the matcher alone.
+- Reading, as preregistered: neither open reader is shown to use old audio. MiniCPM-o's dev oracle (the same
+  clips beside its labelled text) was 3.1 pp below the text alone on 32 families.
+- The second judge saw 125 answers and agreed with the first on 122.
 
 **Strong-reader ceiling (48 holdout families; preregistered as exploratory; not replicated).** Gemini 3.8 Flash, run through
 the `agy` agent harness, gains from audio over the transcript: A − M:asr = +18.8 (6.6 to 31.7), against +2.1
@@ -88,7 +105,9 @@ after the failed gate; on holdout the upper bound is 7.1 (8.3 with the second ju
 - A causal account of why the open readers gain little from the audio, or of why Gemini appeared to.
 - Public verification of the preregistration timing (see `PROVENANCE.md`).
 - The frontier, the Phase 1 equivalence margin (5.6 pp) and the strata (`pilot/analyze_extra.py`), and the
-  scoring-sensitivity analysis and T\* − A contrasts (`pilot/analyze_scoring.py`), are post hoc.
+  scoring-sensitivity analysis and T\* − A contrasts (`pilot/analyze_scoring.py`), are post hoc, as is
+  `pilot/analyze_posctrl_scoring.py`.
+- That Qwen3-Omni uses the right old clips: the positive control's O − M:asr estimate was not tested.
 
 ## Limitations
 
@@ -184,6 +203,8 @@ after the failed gate; on holdout the upper bound is 7.1 (8.3 with the second ju
   - Gemini outputs are in `gemini_arms.jsonl`; the first, shared-folder pass is in
     `gemini_arms_v1_shared_dir.jsonl`.
 - `pilot/out_omni/`: Qwen3-Omni outputs, verdicts, `OMNI_RESULTS.json` and `SENSITIVITY.json`.
+- `pilot/out_posctrl/`: positive-control outputs (raw, and with gold joined for the analysis), verdicts,
+  `REPLAY.json`, `POSCTRL_RESULTS.json` and `POSCTRL_SCORING.json`.
 - `phase0/`: the frozen split, plus the benchmark metadata and prompts the code reads.
 - `paper/`: the short paper (`note.tex`, `note.pdf`; Zenodo concept DOI 10.5281/zenodo.23682910, all versions) and
   `make_figures.py`, which draws its figures from the files above (`cd paper && python3 make_figures.py`).
@@ -194,14 +215,15 @@ after the failed gate; on holdout the upper bound is 7.1 (8.3 with the second ju
 `bash reproduce.sh` takes Python 3 with numpy; no GPU, no network. It works on a temporary copy, so the
 checkout is not written to. It reruns
 - `analyze_test.py`, `analyze_extra.py`, `analyze_holdout.py`, `analyze_scoring.py`,
-  `analyze_gemini_clean.py` (Qwen3-Omni) and `analyze_sensitivity.py` (post hoc, v3), on the shipped
+  `analyze_gemini_clean.py` (Qwen3-Omni), `analyze_sensitivity.py` (post hoc, v3), `analyze_posctrl.py`
+  and `analyze_posctrl_scoring.py` (post hoc, v3.2), on the shipped
   outputs and verdicts.
 
 It then compares every number pinned in `expected.json` (all arm accuracies, contrasts, decisions, frontier,
 strata and scoring sensitivity) and exits 3 on any difference.
 
-`bash reproduce.sh --negative` flips one verdict in each of the four verdict files
-(test, holdout, Gemini, Qwen3-Omni), each in its own copy, and requires exit 3 for each.
+`bash reproduce.sh --negative` flips one verdict in each of the five verdict files
+(test, holdout, Gemini, Qwen3-Omni, positive control), each in its own copy, and requires exit 3 for each.
 
 Not covered by `reproduce.sh`:
 - the cluster statistics, which are read from `clusters.json`;
@@ -217,7 +239,7 @@ Regenerating the outputs needs:
 Then run `features.py`, `clusters.py`, and `run_dev.py DATA FEAT OUT --reader minicpm --stage arms --arms test
 --settings pilot/frozen_minicpm.json`. Qwen3-Omni needs an 80 GB GPU and transformers 4.57.1: export the
 sealed plans with `run_dev.py DATA FEAT OUT --reader minicpm --stage plans --arms holdout --plan-subset all
---plan-arms N,A,M:asr,T@0.25,G@0.25`, then run `omni_reader.py`. The plan archive the run read is not
+--plan-arms N,A,M:asr,T@0.25,G@0.25`, then run `omni_reader.py`. The positive-control plans come from that export via `make_posctrl_plans.py`. The plan archive the run read is not
 released, so regenerated plans are not guaranteed to match it. Dataset and model revisions are not pinned, so regenerated outputs
 may drift. Judging calls the two judge models named in `pilot/judge.py`. Raw judge transcripts are not
 shipped; the per-answer verdicts are.
