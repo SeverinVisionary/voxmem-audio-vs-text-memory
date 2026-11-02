@@ -4,17 +4,22 @@ A preregistered study on the VoxMem benchmark (8K histories). The question: when
 how something was said (who spoke, emotion, background sound) several sessions later, does keeping the old
 user audio in memory beat spending the same KV positions on a text memory written from that audio?
 
-Each split was run once under a preregistration written before it: `PREREGISTRATION.md` (Phase 1, test split,
-300 families) and `PREREG_HOLDOUT.md` (Phase 1b, holdout split, 142 families). Both are shipped as frozen,
-apart from one deviation note appended to `PREREG_HOLDOUT.md` §5. `PROVENANCE.md` gives the freeze commits
+Each run was made once under a preregistration written before it: `PREREGISTRATION.md` (Phase 1, test split,
+300 families), `PREREG_HOLDOUT.md` (Phase 1b, holdout split, 142 families) and `PREREG_OMNI.md` (a second
+open reader, Qwen3-Omni, on the same 142 holdout families). All three are shipped as frozen, apart from one
+deviation note appended to §5 of each of the last two. `PROVENANCE.md` gives the freeze commits
 and file hashes. These come from the private repository the study was developed in, so the freeze is
 self-attested; it lists the internal material the preregistrations mention that is not released.
 
 ## Results
 
 All numbers are percentage points (pp) with 95% intervals, scored by the first judge unless stated.
-The first judge is `gemini-3.8-flash-high` for MiniCPM-o answers and `claude-opus-5-5` for Gemini's answers,
-so that Gemini does not grade itself.
+The first judge is `gemini-3.8-flash-high` for MiniCPM-o answers and `claude-opus-5-5` for Gemini's and
+Qwen3-Omni's answers, so that Gemini does not grade itself.
+
+**Summary (v3).** Neither open reader shows a reliable gain from old audio over a plain transcript. Qwen3-Omni
+uses its memory (the full audio history beats no memory by 19.0 pp) but beats the transcript by only +1.4 (−5.4 to +7.3).
+The Gemini audio gain below is exploratory: a sealed rerun meant to confirm it was abandoned unscored.
 
 **Phase 1 (test, MiniCPM-o 4.5): the H1 gate is not passed (decision NO-CUE).** Adding the whole old-audio
 history on top of the best text memory shows no detectable benefit: F − T\* = −0.3 (−5.4 to +5.7),
@@ -33,7 +38,22 @@ Every memory arm, text or audio, scores 27–31%; question only 8%; the full aud
   substituted where it saw the answer, G − T\* = +4.2 (+0.4 to +8.3), so a small matched-budget gain for
   old audio on the holdout is not excluded.
 
-**Strong-reader ceiling (48 holdout families; preregistered as exploratory).** Gemini 3.8 Flash, run through
+**Qwen3-Omni-30B-A3B-Instruct (holdout, 142 families; `PREREG_OMNI.md`).** Thinker only, greedy, the same
+sealed memory plans as rendered for MiniCPM-o; 710 runs, none failed. Accuracy: question only 15.5%, A 34.5%,
+M:asr 33.1%, T\* 28.9%, G 31.0%.
+- C1 (primary): A − M:asr = +1.4 (−5.4 to +7.3), one-sided p = 0.42: **NOT-SHOWN**. On the 94 families
+  outside the Gemini subset: +3.2 (−5.9 to +11.4).
+- A − question only = +19.0 (10.8 to 27.7): the reader uses its memory. A also carries the assistant's text
+  turns, so this is not a test of the audio alone.
+- C2: T\* − A = −5.6 (−13.6 to +3.3), unresolved at the 10 pp margin.
+- C3: G − T\* = +2.1 (−0.9 to +6.2), at the MiniCPM-o position budget (Qwen's native input lengths differ).
+- C4: (A − M:asr) Qwen3-Omni minus MiniCPM-o = +2.8 (−6.1 to +11.9); +2.8 (−4.7 to +10.8) with the
+  deterministic matcher for both.
+- `analyze_gemini_clean.py` keeps its Gemini labels: in `OMNI_RESULTS.json`, "NOT-REPLICATED" is
+  `PREREG_OMNI.md`'s NOT-SHOWN, and "C4 DiD (A-M:asr) gemini minus minicpm" is Qwen3-Omni minus MiniCPM-o.
+- The second judge (`claude-sonnet-5-5`) saw 208 answers and agreed with the first on 98.1%.
+
+**Strong-reader ceiling (48 holdout families; preregistered as exploratory; not replicated).** Gemini 3.8 Flash, run through
 the `agy` agent harness, gains from audio over the transcript: A − M:asr = +18.8 (6.6 to 31.7), against +2.1
 for MiniCPM-o on the same families; difference between readers +16.7 (5.6 to 43.7). These count two invalid runs as incorrect, as
 preregistered; those runs could read the answer key, and counting them as answered gives +14.6 and +12.5
@@ -44,8 +64,12 @@ T\* − A = +2.1 (−13.7 to +19.1). Old audio on top of T\* adds
 +2.1 at matched positions (G; −7.1 to +10.3) and +6.3 over budget (F; −6.4 to +25.7). At n = 48 these
 intervals do not exclude a sizeable gain.
 
-Reading: the benchmark's acoustic questions need acoustic information. Gemini, through `agy`, extracts it from the audio
-and MiniCPM-o mostly does not. For MiniCPM-o a compact text memory with acoustic labels is as accurate as
+A sealed rerun of Gemini on all 142 families, with the gold removed from the plans and the agent sandboxed,
+was preregistered and started, but stopped at 324 of 710 runs when the account's quota ran out. It was
+abandoned unscored; its rows are not released and the cross-reader claim is withdrawn.
+
+Reading: two open readers gain nothing reliable from old audio over a transcript at this budget. The
+Gemini gain, through `agy`, remains an unreplicated exploratory result. For MiniCPM-o a compact text memory with acoustic labels is as accurate as
 the full audio history (T\* − A = 0.0, −6.0 to +6.0 on test; +0.7, −6.3 to +8.3 on holdout), at about 1/300 of the storage of the raw audio. It takes about 45% more KV positions, because
 the labels are verbose. Whether old audio adds anything beyond such a memory is bounded for MiniCPM-o (under
 6 pp at matched positions) but not settled for Gemini.
@@ -54,9 +78,9 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
 
 - Retained-KV memory. Memory is re-prefilled for every question. The planned check that retained KV and
   re-prefill agree was not run, so all results describe re-prefill memory.
-- Anything about readers other than these two, about Gemini outside the `agy` harness, or about benchmarks
+- Anything about readers other than these three, about Gemini outside the `agy` harness, or about benchmarks
   other than VoxMem 8K.
-- A causal account of why MiniCPM-o makes little use of the audio.
+- A causal account of why the open readers gain little from the audio, or of why Gemini appeared to.
 - Public verification of the preregistration timing (see `PROVENANCE.md`).
 - The frontier, the Phase 1 equivalence margin (5.6 pp) and the strata (`pilot/analyze_extra.py`), and the
   scoring-sensitivity analysis and T\* − A contrasts (`pilot/analyze_scoring.py`), are post hoc.
@@ -117,28 +141,31 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
   - Memory records, budgets and rendering `memory.py`.
   - Readers `reader.py` and `gemini_reader.py`; runs `run_dev.py` and `diag.py`.
   - Source clustering `clusters.py`; judging `judge.py`.
+  - Qwen3-Omni reader `omni_reader.py`; its analysis `analyze_gemini_clean.py` (written for the abandoned
+    Gemini rerun and reused unchanged, as `PREREG_OMNI.md` §3 states).
   - Analyses `analyze_*.py`; unit tests `test_memory.py`.
 - `pilot/out_dev/`: dev-split runs used for tuning (Ultravox and MiniCPM-o), with verdicts.
 - `pilot/out_test/`: Phase 1 outputs, clusters, verdicts, `TEST_RESULTS.json` and `EXTRA_RESULTS.json`.
 - `pilot/out_holdout/`: Phase 1b outputs, verdicts, `HOLDOUT_RESULTS.json` and `SCORING_RESULTS.json`.
   - Gemini outputs are in `gemini_arms.jsonl`; the first, shared-folder pass is in
     `gemini_arms_v1_shared_dir.jsonl`.
+- `pilot/out_omni/`: Qwen3-Omni outputs, verdicts and `OMNI_RESULTS.json`.
 - `phase0/`: the frozen split, plus the benchmark metadata and prompts the code reads.
-- `paper/`: the short paper (`note.tex`, `note.pdf`; Zenodo DOI 10.5281/zenodo.23682911) and
+- `paper/`: the short paper (`note.tex`, `note.pdf`; Zenodo concept DOI 10.5281/zenodo.23682910, all versions) and
   `make_figures.py`, which draws its figures from the files above (`cd paper && python3 make_figures.py`).
 - `BYTE_ACCOUNTING.md`: ledger definitions. `PROVENANCE.md`: freeze record.
 
 ## Reproduce
 
 `bash reproduce.sh` takes Python 3 with numpy; no GPU, no network. It reruns
-- `analyze_test.py`, `analyze_extra.py`, `analyze_holdout.py` and `analyze_scoring.py`, on the shipped outputs
-  and verdicts.
+- `analyze_test.py`, `analyze_extra.py`, `analyze_holdout.py`, `analyze_scoring.py` and
+  `analyze_gemini_clean.py` (Qwen3-Omni), on the shipped outputs and verdicts.
 
 It then compares every number pinned in `expected.json` (all arm accuracies, contrasts, decisions, frontier,
 strata and scoring sensitivity) and exits 3 on any difference.
 
-`bash reproduce.sh --negative` flips one verdict in each of the three verdict files
-(test, holdout, Gemini), each in its own copy, and requires exit 3 for each.
+`bash reproduce.sh --negative` flips one verdict in each of the four verdict files
+(test, holdout, Gemini, Qwen3-Omni), each in its own copy, and requires exit 3 for each.
 
 Not covered by `reproduce.sh`:
 - the cluster statistics, which are read from `clusters.json`;
@@ -151,7 +178,7 @@ Regenerating the outputs needs:
 - MiniCPM-o 4.5 and Ultravox-v0.6 weights, transformers 4.51.3, torch 2.8.0;
 - the benchmark audio, which `pilot/data.py` downloads (`python data.py OUT test`).
 
-Then run `features.py`, `clusters.py`, and `run_dev.py --reader minicpm --stage arms --arms test
+Qwen3-Omni needs an 80 GB GPU and transformers 4.57.1 (`omni_reader.py`). Then run `features.py`, `clusters.py`, and `run_dev.py --reader minicpm --stage arms --arms test
 --settings pilot/frozen_minicpm.json`. Dataset and model revisions are not pinned, so regenerated outputs
 may drift. Judging calls the two judge models named in `pilot/judge.py`. Raw judge transcripts are not
 shipped; the per-answer verdicts are.

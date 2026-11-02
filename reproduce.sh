@@ -15,7 +15,8 @@ run() {  # $1 = root of a copy of this repository
     python3 analyze_holdout.py out_holdout/arms_minicpm.jsonl out_holdout/judge/verdicts.jsonl \
       out_holdout/clusters.json "$T/holdout.json" out_holdout/gemini_arms.jsonl \
       out_holdout/judge_gemini/verdicts.jsonl >/dev/null &&
-    python3 analyze_scoring.py "$T/scoring.json" >/dev/null)
+    python3 analyze_scoring.py "$T/scoring.json" >/dev/null &&
+    python3 analyze_gemini_clean.py out_omni/arms_omni.jsonl out_omni/judge/verdicts.jsonl "$T/omni.json" >/dev/null)
   python3 - "$T" "$R/expected.json" <<'PY'
 import json, os, sys
 T, exp = sys.argv[1], json.load(open(sys.argv[2]))
@@ -35,7 +36,10 @@ sys.exit(3 if bad else 0)
 PY
 }
 if [[ "${1:-}" == "--negative" ]]; then
-  for V in out_test/judge/verdicts.jsonl out_holdout/judge/verdicts.jsonl out_holdout/judge_gemini/verdicts.jsonl; do
+  # the unchanged copy must reproduce first, so an accepted mismatch below can only come from the flip
+  run "." >/dev/null || { echo "NEGATIVE CONTROL INVALID: the unchanged repository does not reproduce"; exit 1; }
+  for V in out_test/judge/verdicts.jsonl out_holdout/judge/verdicts.jsonl out_holdout/judge_gemini/verdicts.jsonl \
+      out_omni/judge/verdicts.jsonl; do
     C=$(mktemp -d); cp -R . "$C/"
     python3 - "$C/pilot/$V" <<'PY'
 import json, sys

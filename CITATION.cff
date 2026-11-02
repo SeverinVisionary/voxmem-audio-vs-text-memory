@@ -4,8 +4,8 @@ title: "Old audio versus text memory at matched KV budgets in frozen speech LLMs
 authors:
   - family-names: Yang
     given-names: Hanyu
-version: 1.0.0
-date-released: 2026-10-26
+version: 3.0.0
+date-released: 2026-11-01
 license:
   - MIT
   - CC-BY-NC-4.0

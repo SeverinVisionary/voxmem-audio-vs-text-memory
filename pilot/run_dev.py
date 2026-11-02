@@ -262,9 +262,10 @@ def ceiling_subset(ctx):
     return out
 
 
-def stage_plans(ctx, out, settings_file):
+def stage_plans(ctx, out, settings_file, subset="ceiling", arms=None):
     """Export the ceiling subset's rendered prompts (MiniCPM-o budgets) and its clips as 16 kHz WAV for a reader
-    run elsewhere. Tokenizer only; no model weights."""
+    run elsewhere. Tokenizer only; no model weights. subset="all" exports every family (clean Gemini rerun,
+    PREREG_GEMINI_CLEAN.md); the gold answers go to gold.jsonl, not plans.jsonl, so the reader never needs them."""
     import soundfile as sf
     from transformers import AutoTokenizer
     from memory import MiniCPMCounter
@@ -275,11 +276,17 @@ def stage_plans(ctx, out, settings_file):
     ctx.settings = json.load(open(settings_file))["settings"]
     d = os.path.join(out, "plans")
     os.makedirs(os.path.join(d, "audio"), exist_ok=True)
+    qids = ceiling_subset(ctx) if subset == "ceiling" else sorted(ctx.qids)
+    sealed = subset != "ceiling"
+    g = open(os.path.join(out, "gold.jsonl"), "w") if sealed else None
     with open(os.path.join(d, "plans.jsonl"), "w") as f:
-        for q in ceiling_subset(ctx):
+        for q in qids:
             b = ctx.builder(q, Tok, **ctx.settings)
             ev = ctx.ev[q]
-            for arm in CEILING_ARMS:
+            gold = gold_text(ev["gold_json"], ev["answer_type"])
+            if sealed:
+                g.write(json.dumps(dict(qid=q, gold=gold)) + "\n")
+            for arm in arms or CEILING_ARMS:
                 p = ctx.plan(b, q, arm, Tok)
                 user, clips = b.render(p)
                 names = []
@@ -291,8 +298,10 @@ def stage_plans(ctx, out, settings_file):
                     names.append(name)
                 f.write(json.dumps(dict(qid=q, arm=arm, system=b.system, user=user, clips=names,
                                         evidence_type=ev["evidence_type"], answer_type=ev["answer_type"],
-                                        gold=gold_text(ev["gold_json"], ev["answer_type"]), **b.ledger(p))) + "\n")
-    print("plans", len(ceiling_subset(ctx)), "families", flush=True)
+                                        **({} if sealed else dict(gold=gold)), **b.ledger(p))) + "\n")
+    if g:
+        g.close()
+    print("plans", len(qids), "families", flush=True)
 
 
 def stage_minicpm(ctx, out):
@@ -310,6 +319,8 @@ def main():
     ap.add_argument("--stage", required=True); ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--reader", default="ultravox", choices=list(SUFFIX))
     ap.add_argument("--arms", default="dev", choices=["dev", "test", "holdout"]); ap.add_argument("--settings")
+    ap.add_argument("--plan-subset", default="ceiling", choices=["ceiling", "all"])
+    ap.add_argument("--plan-arms", help="comma-separated arms for --stage plans (default: the ceiling arms)")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     ctx = Ctx(a.data, a.feat, a.out, a.limit)
@@ -318,7 +329,7 @@ def main():
             return print("minicpm: already measured")
         return stage_minicpm(ctx, a.out)
     if a.stage == "plans":
-        return stage_plans(ctx, a.out, a.settings)
+        return stage_plans(ctx, a.out, a.settings, a.plan_subset, a.plan_arms and a.plan_arms.split(","))
     if a.stage == "selftags" and not pending_selftags(ctx, a.out):
         return print("selftags: every turn already tagged")
     sfx = SUFFIX[a.reader] if a.stage != "selftags" else ""

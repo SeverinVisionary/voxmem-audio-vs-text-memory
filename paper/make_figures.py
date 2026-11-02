@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 P = "../pilot/"
 BLUE, ORANGE, AQUA = "#2a78d6", "#eb6834", "#1baf7a"     # categorical slots 1-3 (validated, light)
+PURPLE = "#8056b3"
 INK, MUTED, GRID = "#1f1f1e", "#6b6a63", "#e4e3dd"
 plt.rcParams.update({"font.size": 8.5, "font.family": "DejaVu Sans", "axes.edgecolor": MUTED,
                      "axes.labelcolor": INK, "xtick.color": MUTED, "ytick.color": MUTED,
@@ -17,6 +18,7 @@ plt.rcParams.update({"font.size": 8.5, "font.family": "DejaVu Sans", "axes.edgec
 test = json.load(open(P + "out_test/TEST_RESULTS.json"))
 hold = json.load(open(P + "out_holdout/HOLDOUT_RESULTS.json"))
 score = json.load(open(P + "out_holdout/SCORING_RESULTS.json"))
+omni = json.load(open(P + "out_omni/OMNI_RESULTS.json"))
 arms = [json.loads(l) for l in open(P + "out_test/arms_minicpm.jsonl")]
 
 
@@ -50,14 +52,15 @@ def composition():
 
 
 def accuracy():
-    """Accuracy by arm for the three reader/split rows (first judge)."""
+    """Accuracy by arm for the four reader/split rows (first judge)."""
     cols = [("N", "$N$\nquestion only"), ("M:asr", "$M_{\\rm asr}$\ntranscript"), ("A", "$A$\nfull audio"),
             ("T@0.25", "$T^*$\ntext record"), ("G@0.25", "$G$\ntext + clips"), ("F", "$F$\n$T^*$ + all audio")]
     rows = [("MiniCPM-o, test (300)", {a: v["acc"] for a, v in test["arms"].items()}, BLUE, ""),
             ("MiniCPM-o, holdout (142)", hold["acc"], ORANGE, "//"),
-            ("Gemini 3.8 Flash, holdout subset (48)", hold["C ceiling"]["acc"], AQUA, "..")]
-    fig, ax = plt.subplots(figsize=(6.0, 2.7))
-    w = 0.27
+            ("Qwen3-Omni, holdout (142)", omni["all"]["acc"], PURPLE, "\\\\"),
+            ("Gemini (48), exploratory / unreplicated", hold["C ceiling"]["acc"], AQUA, "..")]
+    fig, ax = plt.subplots(figsize=(6.0, 2.9))
+    w = 0.21
     for k, (label, acc, c, hatch) in enumerate(rows):
         present = [i for i, (arm, _) in enumerate(cols) if arm in acc]
         for i, (arm, _) in enumerate(cols):
@@ -75,7 +78,7 @@ def accuracy():
     ax.set_xlim(-0.6, len(cols) - 0.4)
     ax.grid(axis="y", color=GRID, lw=0.6)
     ax.set_axisbelow(True)
-    ax.legend(frameon=False, loc="lower left", fontsize=7, ncol=3, bbox_to_anchor=(0, 1.0))
+    ax.legend(frameon=False, loc="lower left", fontsize=7, ncol=2, bbox_to_anchor=(0, 1.0))
     fig.tight_layout()
     fig.savefig("fig_accuracy.pdf", metadata={"CreationDate": None})
 
@@ -94,14 +97,18 @@ def contrasts():
             ("$G - T^*$, holdout (matched cost)", hold["B3 G-T@0.25"], False, False),
             ("$A - M_{\\rm asr}$, holdout (non-inferiority)", neg(hold["B1 M:asr-A"]), False, True),
             ("$A - M_{\\rm asr}$, the 48 Gemini families", c["minicpm A-M:asr (same families)"], False, False)]),
-        ("Gemini 3.8 Flash (exploratory, 48 families)", AQUA, [
+        ("Qwen3-Omni (preregistered, 142 families)", PURPLE, [
+            ("$A - M_{\\rm asr}$ (primary)", omni["all"]["C1 A-M:asr"], False, False),
+            ("$G - T^*$ (MiniCPM-o positions)", omni["all"]["C3 G@0.25-T@0.25"], False, False),
+            ("$A - T^*$", neg(omni["all"]["C2 T@0.25-A"]), False, False)]),
+        ("Gemini 3.8 Flash (48; exploratory / unreplicated)", AQUA, [
             ("$A - M_{\\rm asr}$", c["gemini A-M:asr"], False, False),
             ("$A - M_{\\rm asr}$, invalid runs scored right", score["post_hoc"]["gemini invalid runs as answered"]["A_minus_asr"],
              True, False),
             ("$G - T^*$ (matched in MiniCPM-o positions)", c["gemini G-T@0.25"], False, False),
             ("$A - T^*$", neg(score["post_hoc"]["gemini T@0.25-A"]), True, False)]),
     ]
-    fig, ax = plt.subplots(figsize=(6.0, 3.5))
+    fig, ax = plt.subplots(figsize=(6.0, 4.5))
     y, ticks, labels, heads = 0, [], [], []
     for title, col, items in groups:
         ticks.append(y); labels.append(title); heads.append(len(labels) - 1)

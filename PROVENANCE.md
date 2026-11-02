@@ -10,6 +10,8 @@ the private repository; it is self-attested, and nothing here is independently t
 | Phase 1 test outputs committed, before judging | `5d60788678b9cdd03a21a1c2717ae86f2acd63ac` | 2026-10-25 22:55 |
 | Phase 1b preregistration frozen | `e10bc521f87811f3425113fc8f409197aa0d6b5f` | 2026-10-26 08:04 |
 | Phase 1b MiniCPM-o outputs committed, before judging | `f9b3c7e940c9ea3c19a10cfaf6d5f57b8879fa0e` | 2026-10-26 10:55 |
+| Qwen3-Omni preregistration frozen | `b900cf41227a520fdaf4f9f77d75f8ef29dc0c8b` | 2026-10-28 18:28 |
+| Qwen3-Omni outputs committed, before judging | `dc3a14f0bc742db8918cd15434529f91b45c27fb` | 2026-10-28 21:11 |
 
 SHA-256 of the files as frozen; the shipped copies are byte-identical except where noted.
 
@@ -24,12 +26,19 @@ SHA-256 of the files as frozen; the shipped copies are byte-identical except whe
 | `pilot/memory.py` as used for Phase 1 (not shipped; later versions add the Phase 1b writers) | e96d7e1 | `ec814669409f3ac034c748cc41ba7e81f9265e7578608deffd46372b3d9c6203` |
 | `pilot/memory.py` | e10bc52 | `82c2b2642269c5a5ac19ff2f1f567cdd8d9a8dd2ce376633555f13a3082558ff` |
 | `PREREG_HOLDOUT.md` | e10bc52 | `5ad2e8358e61283f26a181aa63ce2a8399497f185606db4ab642c6003290c3fc` (see below) |
+| `PREREG_OMNI.md` | b900cf4 | `8ceaa8798d30414b015ae00ebdcf579708d178c00fb02c4676666e938e04a3c3` (see below) |
+| `pilot/omni_reader.py` | b900cf4 | `45c5fa65647afc090c15da44102db95800d35a674dc8aeb1e3c9363bf9eadf3f` |
+| `pilot/analyze_gemini_clean.py` | b900cf4 | `e3106a39882e3a5d6874ebe7a9ba7826b7838786a94b0bc1646f99b1b099365c` |
 
 `PREREG_HOLDOUT.md` differs from its frozen form by one appended bullet under §5 (the Gemini deviation,
 starting "2026-10-26, before any Gemini answer was judged"), added after the freeze as that section requires.
-Deleting that bullet and the blank line before it restores the frozen bytes.
+Deleting that bullet and the blank line before it restores the frozen bytes. `PREREG_OMNI.md` likewise
+differs by one appended §5 bullet (starting "2026-10-28, before any answer existed"), and deleting it with the
+blank line before it restores the frozen bytes.
 
-Both preregistrations refer to material that is not released: planning and review notes (PLAN.md,
+The preregistrations refer to material that is not released: planning and review notes (PLAN.md,
 reviews/), internal write-ups (pilot/DEV_RESULTS.md, pilot/TEST_RESULTS.md), the split script
-(phase0/split.py), the Colab notebooks and their builders, and a private issue tracker (#1082). The
+(phase0/split.py), the Colab notebooks and their builders, a private issue tracker (#1082), the abandoned sealed Gemini rerun's
+preregistration (PREREG_GEMINI_CLEAN.md) and the sealed plan archive the Qwen3-Omni run read
+(plans_clean.zip; it is regenerable with `run_dev.py`). The
 dev-split outputs those write-ups summarise are in `pilot/out_dev/`.
