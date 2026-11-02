@@ -5,9 +5,10 @@
 #   bash reproduce.sh --negative   # flip one verdict per verdict file in copies; each must fail with exit 3
 set -euo pipefail
 cd "$(dirname "$0")"
-sha256sum -c SHA256SUMS --quiet 2>/dev/null || shasum -a 256 -c SHA256SUMS --quiet
-run() {  # $1 = root of a copy of this repository
-  local R="$1" T; T=$(mktemp -d); trap 'rm -rf "$T"' RETURN
+if command -v sha256sum >/dev/null; then sha256sum -c SHA256SUMS --quiet; else shasum -a 256 -c SHA256SUMS --quiet; fi
+run() {  # $1 = root of this repository or a copy; analyses run on a temporary copy, so $1 is not written to
+  local T; T=$(mktemp -d); trap 'rm -rf "$T"' RETURN
+  mkdir "$T/repo"; cp -R "$1/." "$T/repo/"; local R="$T/repo"
   (cd "$R/pilot" && python3 analyze_test.py out_test/arms_minicpm.jsonl out_test/judge/verdicts.jsonl \
       out_test/clusters.json "$T/test.json" >/dev/null &&
     python3 analyze_extra.py out_test/arms_minicpm.jsonl out_test/judge/verdicts.jsonl \
@@ -16,8 +17,9 @@ run() {  # $1 = root of a copy of this repository
       out_holdout/clusters.json "$T/holdout.json" out_holdout/gemini_arms.jsonl \
       out_holdout/judge_gemini/verdicts.jsonl >/dev/null &&
     python3 analyze_scoring.py "$T/scoring.json" >/dev/null &&
-    python3 analyze_gemini_clean.py out_omni/arms_omni.jsonl out_omni/judge/verdicts.jsonl "$T/omni.json" >/dev/null)
-  python3 - "$T" "$R/expected.json" <<'PY'
+    python3 analyze_gemini_clean.py out_omni/arms_omni.jsonl out_omni/judge/verdicts.jsonl "$T/omni.json" >/dev/null &&
+    python3 analyze_sensitivity.py "$T/sensitivity.json" >/dev/null)
+  python3 - "$T" "$1/expected.json" <<'PY'
 import json, os, sys
 T, exp = sys.argv[1], json.load(open(sys.argv[2]))
 def get(d, path):

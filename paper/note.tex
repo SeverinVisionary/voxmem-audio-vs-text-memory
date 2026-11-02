@@ -6,7 +6,7 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,fit}
 
-\title{Forget the Recording?\\ Speech Models Remember Almost as Well from a Transcript}
+\title{Forget the Recording?\\ Open Speech Models Remember Almost as Well from a Transcript}
 \author{Hanyu Yang}
 \date{November 2026 --- v3}
 
@@ -17,12 +17,12 @@
 A speech assistant with long-term memory can keep a user's old recordings or only a written record of
 them. On acoustic questions from VoxMem 8K, two open readers gain nothing reliable from the recordings.
 Qwen3-Omni scores 19.0 points higher with the full audio history than with no memory, yet only 1.4 points
-higher than with a plain transcript (95\% interval $-5.4$ to $+7.3$; 142 question families). For
-MiniCPM-o 4.5 the transcript is non-inferior to the audio at a preregistered 10-point margin. Trading part
-of a labelled text record for old clips at the same size in MiniCPM-o context positions moves accuracy by $+0.7$ points for
-MiniCPM-o and $+2.1$ for Qwen3-Omni; both intervals include zero. Gemini 3.8 Flash showed an audio gain in
-an exploratory run whose sealed rerun did not finish. The labelled text needs about 1/300 of the audio's
-storage.
+higher than with a plain transcript (95\% interval $-5.4$ to $+7.3$; 142 held-out question families). For
+MiniCPM-o 4.5 the transcript is non-inferior to the audio at a preregistered 10-point margin, but only
+narrowly. On the same held-out families, trading part of a labelled text record for old clips at the same
+size in MiniCPM-o context positions moves accuracy by $+2.8$ points for MiniCPM-o and $+2.1$ for Qwen3-Omni;
+both intervals include zero. Gemini 3.8 Flash showed an audio gain in an exploratory run whose sealed rerun
+did not finish. Stored as uncompressed audio, the recordings take about 300 times the bytes of the labelled text.
 \end{abstract}
 
 \section{Introduction}
@@ -32,10 +32,11 @@ a written note of them. We ask which one a frozen speech language model answers 
 question is about the sound itself. Who spoke? In what mood? Over what background noise?
 
 The choice matters because audio is heavy. A minute of speech fills about 600 context positions in
-MiniCPM-o, and its file is hundreds of times larger than a text note.
+MiniCPM-o, and as uncompressed audio its file is hundreds of times larger than a text note.
 
-Xiao, Sethu and Holden built VoxMem to test this kind of memory~\cite{voxmem}. Their numbers make a strong
-case for audio: Gemini 3.7 Flash falls from 46.2\% with audio to 4.4\% with text only.
+Xiao, Sethu and Holden built VoxMem to test this kind of memory~\cite{voxmem}. In their check that the questions
+need the audio, Gemini 3.7 Flash falls from 46.2\% with audio to 4.4\% with the script the speech was
+synthesized from.
 
 A transcript drops the voice, so we write the voice down too. Each user turn gets speaker, emotion and
 sound-event labels next to its words. Then we hold the size fixed in MiniCPM-o positions and trade part of this labelled
@@ -50,8 +51,8 @@ stays open.
 \section{What we did}
 
 Each VoxMem item is a synthesized multi-session conversation at the 8K length, followed by a spoken question
-about an earlier turn. We use the answerable acoustic questions and split them by question family. Filler
-sessions recur across splits; evidence sessions do not.
+about an earlier turn. We use the answerable acoustic questions and split them by question family. No session is
+evidence in two splits, but sessions recur across splits as filler, some of them evidence elsewhere.
 
 \begin{samepage}
 A writer reads each session once, in order (Fig.~\ref{fig:pipeline}). For every user turn it stores its own
@@ -62,13 +63,13 @@ the user audio, and $f = 0.25$. The memory arms are:
 \begin{itemize}
 \item $N$: no memory, only the question.
 \item $M_{\mathrm{asr}}$: the transcript alone, without labels (holdout only).
-\item $A$: the full audio history with the assistant's text turns, the VoxMem setting.
+\item $A$: the full audio history, the VoxMem setting.
 \item $T^*$: $M$ plus per-turn prosody numbers, filled to $B_f$.
-\item $G$: the same text plus old user clips kept online by hash-priority eviction, filled to the same
-  $B_f$ for each family. Audio is about 9\% of it (Fig.~\ref{fig:composition}).
+\item $G$: $M$ plus old user clips kept online by hash-priority eviction, then prosody numbers up to the same
+  $B_f$, so it holds fewer of them than $T^*$. Audio is about 9\% of it (Fig.~\ref{fig:composition}).
 \item $F$: $T^*$ plus every user clip, over budget.
 \end{itemize}
-Every memory is re-read from scratch. Only $G$ and $T^*$ are matched in size;
+Every history arm includes the assistant's text turns. Every memory is re-read from scratch. Only $G$ and $T^*$ are matched in size;
 $A$ and $M_{\mathrm{asr}}$ have different costs.
 
 \begin{figure}[t]
@@ -103,13 +104,13 @@ the reader receives one memory and the spoken question.}
 \centering
 \includegraphics[width=\linewidth]{fig_composition.pdf}
 \caption{Mean memory size per arm on the test split, divided into text and audio positions. $T^*$ and $G$ have the same size
-for every family, to within one position. Text in $A$ is the assistant's turns; in $F$ it includes one
-delimiter position per clip.}
+for every family, to within one position. Text in $A$ is session headers, turn markers and the assistant's turns.}
 \label{fig:composition}
 \end{figure}
 
 The writer uses SenseVoice for ASR~\cite{sensevoice}, emotion2vec for emotion~\cite{emotion2vec},
-AST for sound labels~\cite{ast} and WavLM for speaker features~\cite{wavlm}.
+AST for sound labels~\cite{ast} and WavLM for speaker features~\cite{wavlm}. Speaker labels are local to
+each session.
 Settings were frozen on 32 dev families.
 
 MiniCPM-o's primary test was a gate: $F$ must significantly beat $T^*$ before we claim an audio benefit. If it does
@@ -118,8 +119,11 @@ $M_{\mathrm{asr}}$ is at most 10 points worse than $A$, a one-sided non-inferior
 
 A first judge scores answers blind to the arm: Gemini 3.8 Flash for MiniCPM-o, Claude Opus 5.5 for
 Gemini and Qwen. A second judge sees a seeded 10\% plus every first-judge/string-matcher disagreement.
-For Qwen this is Claude Sonnet 5.5, agreeing on 98.1\% of 208 checked answers.
-Type-stratified cluster-bootstrap intervals use 48 test units and 35 holdout units (20 for Gemini's subset).
+For Qwen this is Claude Sonnet 5.5, agreeing on 121 of 124 distinct answers (204 of 208 rows).
+The planned tag-word canonicalisation and owner adjudication were not done.
+Intervals are type-stratified cluster bootstrap-t over 48 test units and 35 holdout units (20 for Gemini's
+subset); each unit takes the evidence type of most of its families. One-sided $p$-values come from a
+cluster sign-flip test, so the two can disagree near a boundary.
 Clustering by every shared voice or background clip merged nearly everything;
 we use the preregistered fallback of one dominant source per family.
 
@@ -148,41 +152,46 @@ endpoint below the $+10$ tick. Open circles are post hoc.}
 \end{figure}
 
 \textbf{MiniCPM-o: no reliable benefit from added clips.} $F - T^* = -0.3$ points ($-5.4$ to $+5.7$), so the gate
-is not passed. At equal cost, $G - T^* = +0.7$ ($-3.2$ to $+5.6$) on test, which rules out a gain of 6
-points there at the reported confidence level. On holdout it is $+2.8$ ($-1.2$ to $+7.1$).
+is not passed and $G - T^*$ is an estimate only: $+0.7$ ($-3.2$ to $+5.6$) on test. On holdout it is
+$+2.8$ ($-1.2$ to $+7.1$), or $+4.2$ ($+0.4$ to $+8.3$) with the second judge's verdicts where it saw the answer.
 
-\textbf{MiniCPM-o: a bare transcript is non-inferior to full audio.} $A - M_{\mathrm{asr}} = -1.4$
-($-10.1$ to $+9.3$). The upper bound clears the 10-point margin by 0.7 points. Separately, adding one label
+\textbf{MiniCPM-o, holdout: a bare transcript is non-inferior to full audio.} $A - M_{\mathrm{asr}} = -1.4$
+($-10.1$ to $+9.3$). The upper bound clears the 10-point margin by 0.7 points; an unstratified bootstrap
+over the same units gives $+10.4$, which misses it. Separately, adding one label
 group at a time to the transcript passed none of its tests.
 
 \begin{samepage}
 \textbf{Qwen3-Omni: no reliable gain over a transcript.}
 $A - N = +19.0$ points ($10.8$ to $27.7$). Against a transcript,
 $A - M_{\mathrm{asr}} = +1.4$ ($-5.4$ to $+7.3$; one-sided $p = 0.42$), giving the preregistered
-decision NOT-SHOWN. Outside the 48 Gemini families the estimate is $+3.2$ ($-5.9$ to $+11.4$).
-The reader uses its memory. The audio's extra value over text remains uncertain.
-$T^* - A = -5.6$ ($-13.6$ to $+3.3$), so labelled text fails to establish equivalence within 10 points.
-$G - T^* = +2.1$ ($-0.9$ to $+6.2$), using the MiniCPM-o budget.
-The audio-over-transcript contrast differs from MiniCPM-o's by
-$+2.8$ ($-6.1$ to $+11.9$), or $+2.8$ ($-4.7$ to $+10.8$) under the shared matcher.
+decision NOT-SHOWN. It is $0.0$ ($-6.8$ to $+6.7$) under the matcher and $+0.7$ ($-5.9$ to $+6.8$) with
+the second judge's verdicts. The reader uses its memory. The audio's extra value over text remains uncertain.
+$A - T^* = +5.6$ ($-3.3$ to $+13.6$), so labelled text fails to establish equivalence within 10 points.
+$G - T^* = +2.1$ ($-0.9$ to $+6.2$) at the MiniCPM-o budget; in Qwen's own positions $G$ is a median 104
+longer than $T^*$, which favours $G$. Against MiniCPM-o's $-1.4$ on the same families, the
+audio-over-transcript contrast differs by $+2.8$ ($-6.1$ to $+11.9$) with different first judges, or $+2.8$
+($-4.7$ to $+10.8$) under the shared matcher.
 \par\end{samepage}
 
 \textbf{Gemini: exploratory and unreplicated.} On 48 families, $A - M_{\mathrm{asr}} = +18.8$
 ($6.6$ to $31.7$); $T^*$ scores 43.8\% against 41.7\% for $A$.
 The agent could access answer files. Two shell-using transcript runs remained and were scored wrong;
-counting their answers gives $+14.6$ ($1.5$ to $27.0$; $p = 0.057$).
+counting their answers gives $+14.6$ ($1.5$ to $27.0$; $p = 0.057$; post hoc).
 A sealed rerun stopped at 324 of 710 rows on quota, unscored.
 
 \textbf{Storage and context cost differ.} On MiniCPM-o's test split, the estimated median storage
-for $T^*$ is about 1/300 of $A$ (4 bytes per text position, 16-bit PCM audio).
-Its median memory uses about 45\% more positions.
+for $T^*$ is about 1/300 of $A$ (4 bytes per text position, uncompressed 16-bit audio).
+Yet the median $T^*$ memory uses about 45\% more context positions than $A$.
 
 \section{Where this stops}
 
 We did not test a retained key--value cache. The freeze record comes from a private repository and is
-self-attested. On the holdout, the voice clustering behind the resampling units agreed with
-itself within sessions only 89\% of the time, clip matching was 0.58, and the
-non-inferiority margin is cleared by under a point. The strict matcher puts MiniCPM-o's full-audio
+self-attested. No contrast shows that either open reader uses old clips at all, so ``audio adds
+nothing'' cannot be told apart from ``these readers cannot use old audio''. The resampling units come from
+one dominant source per family; families in different units can still share a voice or clip, which can make
+the intervals too narrow. On the holdout, voice-cluster purity was 0.89 against a 0.9 target and
+clip-match accuracy 0.58 on 19 checked clips. For the open readers the judge and the matcher disagree most on $A$,
+up to 6 points more than on the text arms; the preregistration treats a gap above 5 points as a threat. The strict matcher puts MiniCPM-o's full-audio
 test accuracy at 4.7\%, showing that scoring matters. These results concern synthesized speech at
 one history length; reader, writer and benchmark effects remain entangled.
 

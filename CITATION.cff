@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this code or data, please cite it as below. Code is MIT; data (phase0/, pilot/out_*/) are CC BY-NC 4.0, see DATA_LICENSE.md."
-title: "Old audio versus text memory at matched KV budgets in frozen speech LLMs: preregistered test and holdout study"
+title: "Old audio versus text memory in frozen speech LLMs: preregistered test, holdout and second-reader study"
 authors:
   - family-names: Yang
     given-names: Hanyu

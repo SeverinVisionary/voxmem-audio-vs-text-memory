@@ -2,9 +2,11 @@
 
 A preregistered study on the VoxMem benchmark (8K histories). The question: when a speech assistant must recall
 how something was said (who spoke, emotion, background sound) several sessions later, does keeping the old
-user audio in memory beat spending the same KV positions on a text memory written from that audio?
+user audio in memory beat a text memory written from that audio? Two comparisons answer it: full audio
+history against a transcript (not matched in size), and old clips against labelled text at the same size in
+MiniCPM-o positions.
 
-Each run was made once under a preregistration written before it: `PREREGISTRATION.md` (Phase 1, test split,
+Each study was run once (with the logged repeats of failed runs) under a preregistration written before it: `PREREGISTRATION.md` (Phase 1, test split,
 300 families), `PREREG_HOLDOUT.md` (Phase 1b, holdout split, 142 families) and `PREREG_OMNI.md` (a second
 open reader, Qwen3-Omni, on the same 142 holdout families). All three are shipped as frozen, apart from one
 deviation note appended to §5 of each of the last two. `PROVENANCE.md` gives the freeze commits
@@ -68,11 +70,14 @@ A sealed rerun of Gemini on all 142 families, with the gold removed from the pla
 was preregistered and started, but stopped at 324 of 710 runs when the account's quota ran out. It was
 abandoned unscored; its rows are not released and the cross-reader claim is withdrawn.
 
-Reading: two open readers gain nothing reliable from old audio over a transcript at this budget. The
-Gemini gain, through `agy`, remains an unreplicated exploratory result. For MiniCPM-o a compact text memory with acoustic labels is as accurate as
-the full audio history (T\* − A = 0.0, −6.0 to +6.0 on test; +0.7, −6.3 to +8.3 on holdout), at about 1/300 of the storage of the raw audio. It takes about 45% more KV positions, because
-the labels are verbose. Whether old audio adds anything beyond such a memory is bounded for MiniCPM-o (under
-6 pp at matched positions) but not settled for Gemini.
+Reading: neither open reader shows a reliable gain from old audio over a transcript. No contrast shows that
+either open reader uses old clips at all, so this cannot be told apart from a reader that cannot use old
+audio. The Gemini gain, through `agy`, remains an unreplicated exploratory result. For MiniCPM-o a compact
+text memory with acoustic labels has accuracy close to the full audio history (T\* − A = 0.0, −6.0 to +6.0
+on test; +0.7, −6.3 to +8.3 on holdout; post hoc, no preset margin), at about 1/300 of the storage of
+uncompressed 16-bit audio. It takes about 45% more context positions, because the labels are verbose. A
+matched-position gain for old audio above 6 pp is excluded on the MiniCPM-o test split only, as an estimate
+after the failed gate; on holdout the upper bound is 7.1 (8.3 with the second judge).
 
 ## Not claimed
 
@@ -96,8 +101,15 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
     did, it agrees with the first on 98.6–100%.
   - Both preregistered decisions (NO-CUE, TRANSCRIPT-SUFFICES) and the sign of the Gemini A − M:asr gap
     hold under the second judge and under the matcher. All of this is in `pilot/out_holdout/SCORING_RESULTS.json`.
+  - These ranges cover MiniCPM-o and Gemini. For Qwen3-Omni (`pilot/out_omni/SENSITIVITY.json`, post hoc):
+    judge/matcher disagreement 15.8% outside the question-only arm (13.4–18.3% per arm); the second judge
+    saw 208 of 710 rows (29.3%; 124 distinct answers, since identical answers are judged once) and agreed
+    on 204 rows (121 distinct answers). NOT-SHOWN holds under both: C1 = +0.7 (−5.9 to +6.8) with the
+    second judge, 0.0 (−6.8 to +6.7) with the matcher.
+  - The preregistration treats an arm-dependent disagreement gap above 5 pp as a threat. For MiniCPM-o it
+    is 5.7 pp on both splits, highest on A; for Gemini 14 pp. It is flagged here.
 - **Departures from the preregistered judging.** The judge CLI has no temperature setting. The owner
-  adjudication of disagreements was not carried out. The matcher is a fixed normalise-and-contain rule
+  adjudication of disagreements and the tag-vocabulary canonicalisation of answers were not carried out. The matcher is a fixed normalise-and-contain rule
   (`pilot/judge.py`), not VoxMem's per-item normalisation.
 - **Tuning asymmetry.** On the dev split the text memory got about nine screened settings and the
   audio-selection policy two (`PREREGISTRATION.md` §7). This favours the text baseline.
@@ -111,7 +123,10 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
   temperature setting, and what audio representation reached it is not recorded. `agy` was version 1.4.7
   at release.
   - A first pass let runs open other families' clips. The 17 affected runs were repeated with per-run
-    folders, as logged in `PREREG_HOLDOUT.md` §5.
+    folders, as logged in `PREREG_HOLDOUT.md` §5. The 11 non-shell runs were picked as those with more reads
+    than clips; some of them (in A and F) had only re-read their own clips, which the final rule allows, and
+    one first-pass transcript-only run that used no shell (`q_00284`) answered in label form after reading 40
+    files. Repeating them changed some answers.
   - Both runs that stayed invalid are transcript-only (M:asr): the agent kept calling shell commands.
     They are scored incorrect, as preregistered. Dropping those two families instead gives A − M:asr = +19.6.
   - **The agent could reach the answer key.** The exported plans file, which holds the gold answers, sat
@@ -134,6 +149,25 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
   - The Phase 1 primary reader was changed from Ultravox-v0.6 to MiniCPM-o 4.5 before the freeze, because
     Ultravox was at floor on the dev split (`PREREGISTRATION.md` §10).
 
+- **Resampling (post hoc checks in `SENSITIVITY.json`).** Each unit takes the evidence type of most of its
+  families; 11 of 48 test units and 12 of 35 holdout units mix types. With an unstratified bootstrap over the
+  same units, the holdout B1 lower bound is −10.4 (A − M:asr upper bound +10.4), which misses the 10 pp
+  margin, so TRANSCRIPT-SUFFICES depends on the stratification. Test G − T\* (−3.2 to +5.8) and Qwen C1
+  (−5.3 to +7.6) barely move. Families in different units can still share a non-dominant voice or clip,
+  which can make every interval too narrow. `analyze_test.boot_t` sets the pivot of a draw with zero
+  standard error to 0; no draw of the three decision contrasts has zero standard error, but some small
+  post hoc strata in `EXTRA_RESULTS.json` do, and their intervals (for example a zero-width one) are unreliable.
+- **Known code limitations (results unaffected as shipped).** The analyses do not check that every family
+  has every arm: a missing row changes the cohort silently (`analyze_gemini_clean.acc_table` counts it as
+  wrong). `omni_reader.py` retries failed rows without a cap. `judge.py` does not validate verdict strings.
+  Seven test `Gmm@0.25` rows have no plan and are excluded, so that contrast covers 293 families; on
+  `q_00570` the mismatched-audio donor's clips include one of the family's own evidence clips. Two
+  `G@0.25` memories are two positions under budget (`q_00252`, `q_00749`). The Gemini trace check matches
+  clips by file name and, outside the sandbox, counts failed reads.
+- **Preregistration wording.** `PREREG_OMNI.md` §1 and §4 say "at the matched budget" / "at this budget",
+  but its primary contrast A − M:asr is not matched in size; and its A − N check shows the reader uses the
+  memory, not that it hears the clips, since A also carries the assistant's text. The frozen text is left as is.
+
 ## Layout
 
 - `pilot/`: the code.
@@ -149,7 +183,7 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
 - `pilot/out_holdout/`: Phase 1b outputs, verdicts, `HOLDOUT_RESULTS.json` and `SCORING_RESULTS.json`.
   - Gemini outputs are in `gemini_arms.jsonl`; the first, shared-folder pass is in
     `gemini_arms_v1_shared_dir.jsonl`.
-- `pilot/out_omni/`: Qwen3-Omni outputs, verdicts and `OMNI_RESULTS.json`.
+- `pilot/out_omni/`: Qwen3-Omni outputs, verdicts, `OMNI_RESULTS.json` and `SENSITIVITY.json`.
 - `phase0/`: the frozen split, plus the benchmark metadata and prompts the code reads.
 - `paper/`: the short paper (`note.tex`, `note.pdf`; Zenodo concept DOI 10.5281/zenodo.23682910, all versions) and
   `make_figures.py`, which draws its figures from the files above (`cd paper && python3 make_figures.py`).
@@ -157,9 +191,11 @@ the labels are verbose. Whether old audio adds anything beyond such a memory is 
 
 ## Reproduce
 
-`bash reproduce.sh` takes Python 3 with numpy; no GPU, no network. It reruns
-- `analyze_test.py`, `analyze_extra.py`, `analyze_holdout.py`, `analyze_scoring.py` and
-  `analyze_gemini_clean.py` (Qwen3-Omni), on the shipped outputs and verdicts.
+`bash reproduce.sh` takes Python 3 with numpy; no GPU, no network. It works on a temporary copy, so the
+checkout is not written to. It reruns
+- `analyze_test.py`, `analyze_extra.py`, `analyze_holdout.py`, `analyze_scoring.py`,
+  `analyze_gemini_clean.py` (Qwen3-Omni) and `analyze_sensitivity.py` (post hoc, v3), on the shipped
+  outputs and verdicts.
 
 It then compares every number pinned in `expected.json` (all arm accuracies, contrasts, decisions, frontier,
 strata and scoring sensitivity) and exits 3 on any difference.
@@ -178,8 +214,11 @@ Regenerating the outputs needs:
 - MiniCPM-o 4.5 and Ultravox-v0.6 weights, transformers 4.51.3, torch 2.8.0;
 - the benchmark audio, which `pilot/data.py` downloads (`python data.py OUT test`).
 
-Qwen3-Omni needs an 80 GB GPU and transformers 4.57.1 (`omni_reader.py`). Then run `features.py`, `clusters.py`, and `run_dev.py --reader minicpm --stage arms --arms test
---settings pilot/frozen_minicpm.json`. Dataset and model revisions are not pinned, so regenerated outputs
+Then run `features.py`, `clusters.py`, and `run_dev.py DATA FEAT OUT --reader minicpm --stage arms --arms test
+--settings pilot/frozen_minicpm.json`. Qwen3-Omni needs an 80 GB GPU and transformers 4.57.1: export the
+sealed plans with `run_dev.py DATA FEAT OUT --reader minicpm --stage plans --arms holdout --plan-subset all
+--plan-arms N,A,M:asr,T@0.25,G@0.25`, then run `omni_reader.py`. The plan archive the run read is not
+released, so regenerated plans are not guaranteed to match it. Dataset and model revisions are not pinned, so regenerated outputs
 may drift. Judging calls the two judge models named in `pilot/judge.py`. Raw judge transcripts are not
 shipped; the per-answer verdicts are.
 

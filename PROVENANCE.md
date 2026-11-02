@@ -1,7 +1,7 @@
 # Provenance of the preregistrations
 
-The study was developed in a private repository. This public repository is a single snapshot made after both
-runs, so its own history cannot show that anything was fixed in advance. What follows is the record from
+The study was developed in a private repository. This public repository was first published after the first two
+studies and updated after the third, so its own history cannot show that anything was fixed in advance. What follows is the record from
 the private repository; it is self-attested, and nothing here is independently timestamped.
 
 | Event | Private commit | Time (US Pacific) |

@@ -1,0 +1,128 @@
+{
+ "qwen_scoring": {
+  "judge2_where_seen": {
+   "C1 A-M:asr": {
+    "n": 142,
+    "clusters": 35,
+    "diff_pp": 0.7,
+    "se_pp": 3.19,
+    "L_pp": -5.89,
+    "U_pp": 6.75,
+    "p_one_sided": 0.50145,
+    "discordance": 0.162,
+    "loo_range_pp": [
+     -0.81,
+     1.49
+    ]
+   },
+   "C3 G@0.25-T@0.25": {
+    "n": 142,
+    "clusters": 35,
+    "diff_pp": 2.11,
+    "se_pp": 1.89,
+    "L_pp": -0.91,
+    "U_pp": 6.21,
+    "p_one_sided": 0.22198,
+    "discordance": 0.12,
+    "loo_range_pp": [
+     1.42,
+     2.99
+    ]
+   }
+  },
+  "matcher": {
+   "C1 A-M:asr": {
+    "n": 142,
+    "clusters": 35,
+    "diff_pp": 0.0,
+    "se_pp": 3.3,
+    "L_pp": -6.76,
+    "U_pp": 6.73,
+    "p_one_sided": 0.58504,
+    "discordance": 0.127,
+    "loo_range_pp": [
+     -2.42,
+     0.75
+    ]
+   },
+   "C3 G@0.25-T@0.25": {
+    "n": 142,
+    "clusters": 35,
+    "diff_pp": 0.7,
+    "se_pp": 1.85,
+    "L_pp": -3.41,
+    "U_pp": 4.76,
+    "p_one_sided": 0.50095,
+    "discordance": 0.063,
+    "loo_range_pp": [
+     0.0,
+     1.61
+    ]
+   }
+  },
+  "j1_matcher_disagreement_pct": {
+   "A": 18.31,
+   "G@0.25": 14.79,
+   "M:asr": 16.9,
+   "N": 5.63,
+   "T@0.25": 13.38
+  },
+  "j1_matcher_disagreement_pct_outside_N": 15.85,
+  "judge2": {
+   "rows": 208,
+   "rows_pct": 29.3,
+   "agree_rows": 204,
+   "distinct_answers_all": 505
+  }
+ },
+ "resampling": {
+  "minicpm test G-T@0.25": {
+   "stratified": {
+    "diff_pp": 0.67,
+    "L_pp": -3.2,
+    "U_pp": 5.64,
+    "zero_se_share": 0.0
+   },
+   "unstratified": {
+    "diff_pp": 0.67,
+    "L_pp": -3.21,
+    "U_pp": 5.83,
+    "zero_se_share": 0.0
+   },
+   "mixed_type_clusters": 11,
+   "clusters": 48
+  },
+  "minicpm holdout B1 M:asr-A": {
+   "stratified": {
+    "diff_pp": 1.41,
+    "L_pp": -9.26,
+    "U_pp": 10.07,
+    "zero_se_share": 0.0
+   },
+   "unstratified": {
+    "diff_pp": 1.41,
+    "L_pp": -10.38,
+    "U_pp": 11.15,
+    "zero_se_share": 0.0
+   },
+   "mixed_type_clusters": 12,
+   "clusters": 35
+  },
+  "qwen C1 A-M:asr": {
+   "stratified": {
+    "diff_pp": 1.41,
+    "L_pp": -5.39,
+    "U_pp": 7.27,
+    "zero_se_share": 0.0
+   },
+   "unstratified": {
+    "diff_pp": 1.41,
+    "L_pp": -5.34,
+    "U_pp": 7.55,
+    "zero_se_share": 0.0
+   },
+   "mixed_type_clusters": 12,
+   "clusters": 35
+  }
+ }
+}
