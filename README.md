@@ -7,9 +7,11 @@ history against a transcript (not matched in size), and old clips against labell
 MiniCPM-o positions.
 
 Each study was run once (with the logged repeats of failed runs) under a preregistration written before it: `PREREGISTRATION.md` (Phase 1, test split,
-300 families), `PREREG_HOLDOUT.md` (Phase 1b, holdout split, 142 families) and `PREREG_OMNI.md` (a second
-open reader, Qwen3-Omni, on the same 142 holdout families). All three are shipped as frozen, apart from one
-deviation note appended to §5 of each of the last two. `PROVENANCE.md` gives the freeze commits
+300 families), `PREREG_HOLDOUT.md` (Phase 1b, holdout split, 142 families), `PREREG_OMNI.md` (a second
+open reader, Qwen3-Omni, on the same 142 holdout families), and two positive controls on those families,
+`PREREG_POSCTRL.md` (Qwen3-Omni) and `PREREG_POSCTRL2.md` (MiniCPM-o and a sealed Gemini run). They are
+shipped as frozen apart from the deviation notes their own sections call for and one redacted phrase;
+`PROVENANCE.md` lists each difference. `PROVENANCE.md` gives the freeze commits
 and file hashes. These come from the private repository the study was developed in, so the freeze is
 self-attested; it lists the internal material the preregistrations mention that is not released.
 
@@ -68,9 +70,29 @@ Ev-M 38.7%, O 40.8%.
 - P2: O − M:asr = +7.7 (+2.6 to +13.4). The fixed sequence tests P2 only if P1 passes, so this is an estimate,
   not a finding. O is over budget and has no mismatched-clip control. Post hoc (`analyze_posctrl_scoring.py`):
   +7.0 (+2.0 to +12.7) with judge 2 where it saw the answer; +4.2 (−2.0 to +8.7) with the matcher alone.
-- Reading, as preregistered: neither open reader is shown to use old audio. MiniCPM-o's dev oracle (the same
-  clips beside its labelled text) was 3.1 pp below the text alone on 32 families.
 - The second judge saw 125 answers and agreed with the first on 122.
+
+**Positive control, MiniCPM-o and Gemini (holdout, 142 families; `PREREG_POSCTRL2.md`).** The same Ev-A and
+Ev-M plans, byte-identical to Qwen3-Omni's, given to the other two readers (`make_posctrl2_plans.py`).
+MiniCPM-o reran N, M:asr, Ev-A, Ev-M and O from exported 16 kHz clips (`minicpm_plans_reader.py`; 710 runs,
+none failed), so its arms are compared only with each other: 20% of its N and 34% of its M:asr answers differ
+from v3's on the same plans. Gemini ran Ev-A and Ev-M through `gemini_reader.py` in sealed mode: the agent
+could not read the plans, the answers or the source checkout, a planted canary file was blocked in every
+shard, and a run that called other tools or read other files was retried once and then scored wrong.
+P1 (Ev-A − Ev-M > 0) is tested per reader at one-sided 0.025 with no correction across readers.
+- MiniCPM-o: Ev-A 40.8%, Ev-M 34.5%; P1 = +6.3 (−0.2 to +11.3), one-sided p = 0.025: **NOT-SHOWN**. Both forms
+  beat question only (7.0%): Ev-A − N = +33.8, Ev-M − N = +27.5. P2, O − M:asr = +3.5 (−1.2 to +8.3), is an
+  estimate only.
+- Gemini: Ev-A 50.7%, Ev-M 43.7%; P1 = +7.0 (+0.6 to +12.9), one-sided p = 0.040: **HEARS-OLD-CLIPS** under
+  the preregistered rule (the interval's lower bound). Twelve Ev-M runs and no Ev-A run gave no answer: four
+  failed the trace rule twice and eight ended empty after the agent ran commands and web searches. All are
+  scored wrong, as preregistered, which favours audio. Without those twelve families (post hoc,
+  `analyze_posctrl2_sensitivity.py`): +6.2 (−1.0 to +12.3), p = 0.079, not shown.
+- No evidence type passes alone for either reader. The second judge agreed with the first on 235 of 237
+  MiniCPM-o rows and 69 of 70 Gemini rows.
+- Reading: given only the right sessions, all three readers do a few points better with audio than with the
+  transcript (+3.5, +6.3, +7.0). Only Gemini's gain passes, by 0.6 pp, and it rests on the transcript arm's
+  non-answers.
 
 **Strong-reader ceiling (48 holdout families; preregistered as exploratory; not replicated).** Gemini 3.8 Flash, run through
 the `agy` agent harness, gains from audio over the transcript: A − M:asr = +18.8 (6.6 to 31.7), against +2.1
@@ -87,9 +109,9 @@ A sealed rerun of Gemini on all 142 families, with the gold removed from the pla
 was preregistered and started, but stopped at 324 of 710 runs when the account's quota ran out. It was
 abandoned unscored; its rows are not released and the cross-reader claim is withdrawn.
 
-Reading: neither open reader shows a reliable gain from old audio over a transcript. No contrast shows that
-either open reader uses old clips at all, so this cannot be told apart from a reader that cannot use old
-audio. The Gemini gain, through `agy`, remains an unreplicated exploratory result. For MiniCPM-o a compact
+Reading: neither open reader shows a reliable gain from old audio over a transcript. Given only the right
+sessions, audio leads by a few points for every reader, but that edge is resolved for none of them, so this
+cannot be told apart from readers that use old audio only slightly. The full-history Gemini gain, through `agy`, remains an unreplicated exploratory result. For MiniCPM-o a compact
 text memory with acoustic labels has accuracy close to the full audio history (T\* − A = 0.0, −6.0 to +6.0
 on test; +0.7, −6.3 to +8.3 on holdout; post hoc, no preset margin), at about 1/300 of the storage of
 uncompressed 16-bit audio. It takes about 45% more context positions, because the labels are verbose. A
@@ -107,7 +129,9 @@ after the failed gate; on holdout the upper bound is 7.1 (8.3 with the second ju
 - The frontier, the Phase 1 equivalence margin (5.6 pp) and the strata (`pilot/analyze_extra.py`), and the
   scoring-sensitivity analysis and T\* − A contrasts (`pilot/analyze_scoring.py`), are post hoc, as is
   `pilot/analyze_posctrl_scoring.py`.
-- That Qwen3-Omni uses the right old clips: the positive control's O − M:asr estimate was not tested.
+- That Qwen3-Omni or MiniCPM-o uses the right old clips: the O − M:asr estimates were not tested.
+- That Gemini's isolated-session gain is robust: it passes only with the twelve transcript non-answers scored
+  wrong, and the sensitivity without them is post hoc.
 
 ## Limitations
 
@@ -205,6 +229,9 @@ after the failed gate; on holdout the upper bound is 7.1 (8.3 with the second ju
 - `pilot/out_omni/`: Qwen3-Omni outputs, verdicts, `OMNI_RESULTS.json` and `SENSITIVITY.json`.
 - `pilot/out_posctrl/`: positive-control outputs (raw, and with gold joined for the analysis), verdicts,
   `REPLAY.json`, `POSCTRL_RESULTS.json` and `POSCTRL_SCORING.json`.
+- `pilot/out_posctrl2/`: second positive control. MiniCPM-o outputs (raw, and with gold joined), Gemini
+  outputs (gold joined; agent transcripts cut to their last 1,500 characters), verdicts for each,
+  `POSCTRL2_RESULTS.json` and `POSCTRL2_GEMINI_SENSITIVITY.json`.
 - `phase0/`: the frozen split, plus the benchmark metadata and prompts the code reads.
 - `paper/`: the short paper (`note.tex`, `note.pdf`; Zenodo concept DOI 10.5281/zenodo.23682910, all versions) and
   `make_figures.py`, which draws its figures from the files above (`cd paper && python3 make_figures.py`).
@@ -216,14 +243,15 @@ after the failed gate; on holdout the upper bound is 7.1 (8.3 with the second ju
 checkout is not written to. It reruns
 - `analyze_test.py`, `analyze_extra.py`, `analyze_holdout.py`, `analyze_scoring.py`,
   `analyze_gemini_clean.py` (Qwen3-Omni), `analyze_sensitivity.py` (post hoc, v3), `analyze_posctrl.py`
-  and `analyze_posctrl_scoring.py` (post hoc, v3.2), on the shipped
+  and `analyze_posctrl_scoring.py` (post hoc, v3.2), `analyze_posctrl2.py` and
+  `analyze_posctrl2_sensitivity.py` (post hoc, v4), on the shipped
   outputs and verdicts.
 
 It then compares every number pinned in `expected.json` (all arm accuracies, contrasts, decisions, frontier,
 strata and scoring sensitivity) and exits 3 on any difference.
 
-`bash reproduce.sh --negative` flips one verdict in each of the five verdict files
-(test, holdout, Gemini, Qwen3-Omni, positive control), each in its own copy, and requires exit 3 for each.
+`bash reproduce.sh --negative` flips one verdict in each of the seven verdict files
+(test, holdout, Gemini, Qwen3-Omni, positive control, and the second positive control's two readers), each in its own copy, and requires exit 3 for each.
 
 Not covered by `reproduce.sh`:
 - the cluster statistics, which are read from `clusters.json`;
@@ -239,7 +267,8 @@ Regenerating the outputs needs:
 Then run `features.py`, `clusters.py`, and `run_dev.py DATA FEAT OUT --reader minicpm --stage arms --arms test
 --settings pilot/frozen_minicpm.json`. Qwen3-Omni needs an 80 GB GPU and transformers 4.57.1: export the
 sealed plans with `run_dev.py DATA FEAT OUT --reader minicpm --stage plans --arms holdout --plan-subset all
---plan-arms N,A,M:asr,T@0.25,G@0.25`, then run `omni_reader.py`. The positive-control plans come from that export via `make_posctrl_plans.py`. The plan archive the run read is not
+--plan-arms N,A,M:asr,T@0.25,G@0.25`, then run `omni_reader.py`. The positive-control plans come from that export via `make_posctrl_plans.py`, and the second positive
+control's from both via `make_posctrl2_plans.py`; `minicpm_plans_reader.py` runs MiniCPM-o on them. The plan archive the run read is not
 released, so regenerated plans are not guaranteed to match it. Dataset and model revisions are not pinned, so regenerated outputs
 may drift. Judging calls the two judge models named in `pilot/judge.py`. Raw judge transcripts are not
 shipped; the per-answer verdicts are.

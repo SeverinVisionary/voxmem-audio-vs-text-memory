@@ -8,7 +8,7 @@
 
 \title{Forget the Recording?\\ Open Speech Models Remember Almost as Well from a Transcript}
 \author{Hanyu Yang}
-\date{November 2026 --- v3}
+\date{November 2026 --- v4}
 
 \begin{document}
 \maketitle
@@ -21,10 +21,10 @@ higher than with a plain transcript (95\% interval $-5.4$ to $+7.3$; 142 held-ou
 MiniCPM-o 4.5 the transcript is non-inferior to the audio at a preregistered 10-point margin, but only
 narrowly. On the same held-out families, trading part of a labelled text record for old clips at the same
 size in MiniCPM-o context positions moves accuracy by $+2.8$ points for MiniCPM-o and $+2.1$ for Qwen3-Omni;
-both intervals include zero. Given only the sessions that hold the answer, Qwen3-Omni is not shown to do
-better with their audio than with their transcript, so the result describes these readers rather than the
-recordings. Gemini 3.8 Flash showed an audio gain in an exploratory run whose sealed rerun
-did not finish. Stored as uncompressed audio, the recordings take about 300 times the bytes of the labelled text.
+both intervals include zero. Given only the sessions that hold the answer, every reader does a few points
+better with those sessions' audio than with their transcript. The gains are $+3.5$ for Qwen3-Omni, $+6.3$ for MiniCPM-o, $+7.0$ for
+Gemini 3.8 Flash in a sealed run. Only Gemini's gain clears its preregistered test, by 0.6 points, and only
+because twelve of its transcript runs returned no answer. Stored as uncompressed audio, the recordings take about 300 times the bytes of the labelled text.
 \end{abstract}
 
 \section{Introduction}
@@ -46,9 +46,9 @@ text for old clips. If the audio carries something the labels miss, the trade sh
 readers it does not pay reliably. Qwen3-Omni does use its memory: the full audio history lifts it 19 points
 over no memory. Yet a plain transcript gets it to within 1.4 points of that.
 
-We run four preregistrations: MiniCPM-o 4.5 on 300 test and 142 held-out question families, then
-Qwen3-Omni on the same holdout, then a check of whether Qwen3-Omni uses old clips when given the right ones. Gemini 3.8 Flash gained from audio in an exploratory run, and that result
-stays open.
+We run five preregistrations. MiniCPM-o 4.5 runs on 300 test and 142 held-out question families, and
+Qwen3-Omni on the same holdout. Two positive controls then ask whether any of the three readers uses
+old clips when given only the right ones. That edge is a few points for all three and is resolved for none.
 
 \section{What we did}
 
@@ -134,6 +134,13 @@ It completed 142 families across $N,A,M_{\mathrm{asr}},T^*,G$: 710 rows without 
 Its inputs exclude gold answers. Qwen and Gemini reuse memories counted in MiniCPM-o positions;
 Qwen's native input lengths differ. Gemini accesses clips through the \texttt{agy} agent CLI.
 
+The positive controls keep only the evidence sessions. Ev-A gives the reader their user turns as audio,
+Ev-M the same turns as ASR text; the question is $\text{Ev-A} - \text{Ev-M} > 0$ for each reader, with no
+correction across readers. The Gemini run is sealed. The agent cannot read the plans, the answers or this
+repository, and a planted file checks that. A run that calls other tools or reads other files is retried
+once and then scored wrong. MiniCPM-o reran all its arms from exported audio, so its arms are compared only
+with each other; the judges are as above.
+
 \section{What we found}
 
 \begin{figure}[!htb]
@@ -149,7 +156,7 @@ Gemini covers 48 holdout families and remains exploratory and unreplicated. Miss
 \includegraphics[width=\linewidth]{fig_contrasts.pdf}
 \caption{Paired differences, each oriented as audio minus text, so points to the right favour audio.
 Bars are 95\% type-stratified cluster-bootstrap intervals; transcript non-inferiority requires the upper
-endpoint below the $+10$ tick. Open circles are post hoc.}
+endpoint below the $+10$ tick. Ev-A $-$ Ev-M uses only the evidence sessions. Open circles are post hoc.}
 \label{fig:contrasts}
 \end{figure}
 
@@ -181,6 +188,14 @@ The agent could access answer files. Two shell-using transcript runs remained an
 counting their answers gives $+14.6$ ($1.5$ to $27.0$; $p = 0.057$; post hoc).
 A sealed rerun stopped at 324 of 710 rows on quota, unscored.
 
+\textbf{Given only the right sessions, audio is a few points ahead.}
+Qwen3-Omni scores 42.3\% with the evidence audio and 38.7\% with its transcript: $+3.5$ ($-6.2$ to
+$+10.8$). MiniCPM-o scores 40.8\% against 34.5\%: $+6.3$ ($-0.2$ to $+11.3$; $p = 0.025$), just short.
+Both forms beat no memory by 27 to 34 points, so it reads the sessions. In the sealed Gemini run, 50.7\%
+against 43.7\%: $+7.0$ ($+0.6$ to $+12.9$), which passes. Yet twelve Gemini transcript runs gave no answer,
+eight of them after the agent ran web searches, and none of its audio runs did. Without those families the
+gain is $+6.2$ ($-1.0$ to $+12.3$). No evidence type passes alone for any reader.
+
 \textbf{Storage and context cost differ.} On MiniCPM-o's test split, the estimated median storage
 for $T^*$ is about 1/300 of $A$ (4 bytes per text position, uncompressed 16-bit audio).
 Yet the median $T^*$ memory uses about 45\% more context positions than $A$.
@@ -188,13 +203,11 @@ Yet the median $T^*$ memory uses about 45\% more context positions than $A$.
 \section{Where this stops}
 
 We did not test a retained key--value cache. The freeze record comes from a private repository and is
-self-attested. A fourth preregistered run asks whether Qwen3-Omni can use old clips at all. We keep only the
-sessions that hold the answer. With their audio it scores 42.3\%, with their transcript 38.7\%: a gain of
-$+3.5$ points ($-6.2$ to $+10.8$), not shown. Adding those sessions' clips to the full transcript gives
-$+7.7$ ($+2.6$ to $+13.4$), but it counts only as an estimate. The preregistered order tested it only
-after the first contrast passed, the memory is over budget, and the strict matcher gives $+4.2$ ($-2.0$ to $+8.7$). MiniCPM-o, given the
-same clips beside its labelled text, scored 3.1 points lower on 32 dev families. So neither open reader is shown to use old audio, and
-``a transcript is enough'' describes these readers, not the information in the recordings. The resampling units come from
+self-attested. Adding the evidence clips to Qwen3-Omni's full transcript gives $+7.7$ ($+2.6$ to $+13.4$)
+and MiniCPM-o's $+3.5$ ($-1.2$ to $+8.3$). Both count only as estimates. The preregistered order tested
+them only after the isolated contrast passed, and the memory is over budget. Since the isolated edge is
+small and unresolved, ``a transcript is enough'' describes these readers at this sample size, not the
+information in the recordings. The resampling units come from
 one dominant source per family; families in different units can still share a voice or clip, which can make
 the intervals too narrow. On the holdout, voice-cluster purity was 0.89 against a 0.9 target and
 clip-match accuracy 0.58 on 19 checked clips. For the open readers the judge and the matcher disagree most on $A$,
@@ -202,8 +215,10 @@ up to 6 points more than on the text arms; the preregistration treats a gap abov
 test accuracy at 4.7\%, showing that scoring matters. These results concern synthesized speech at
 one history length; reader, writer and benchmark effects remain entangled.
 
-Would Gemini still gain from audio with sealed inputs and no access to answer files?
-The unfinished rerun leaves that question open.
+Is the few-point audio edge real? The three readers agree on its sign and roughly on its size, but 142
+families cannot resolve it for any one of them. One reader on a larger sample would settle it.
+Whether Gemini's full-history gain survives sealed inputs is still untested; its sealed rerun stopped at
+324 of 710 rows.
 
 \paragraph{Data and code.} The \href{https://github.com/SeverinVisionary/voxmem-audio-vs-text-memory}{public repository}
 contains the code, preregistrations and outputs.

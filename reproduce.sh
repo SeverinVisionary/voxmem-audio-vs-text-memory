@@ -21,7 +21,11 @@ run() {  # $1 = root of this repository or a copy; analyses run on a temporary c
     python3 analyze_sensitivity.py "$T/sensitivity.json" >/dev/null &&
     python3 analyze_posctrl.py out_posctrl/arms_posctrl_gold.jsonl out_posctrl/judge/verdicts.jsonl \
       "$T/posctrl.json" >/dev/null &&
-    python3 analyze_posctrl_scoring.py "$T/posctrl_scoring.json" >/dev/null)
+    python3 analyze_posctrl_scoring.py "$T/posctrl_scoring.json" >/dev/null &&
+    python3 analyze_posctrl2.py out_posctrl2/arms_minicpm_gold.jsonl out_posctrl2/judge_minicpm/verdicts.jsonl \
+      out_posctrl2/gemini_arms.jsonl out_posctrl2/judge_gemini/verdicts.jsonl "$T/posctrl2.json" >/dev/null &&
+    python3 analyze_posctrl2_sensitivity.py out_posctrl2/gemini_arms.jsonl out_posctrl2/judge_gemini/verdicts.jsonl \
+      "$T/posctrl2_sensitivity.json" >/dev/null)
   python3 - "$T" "$1/expected.json" <<'PY'
 import json, os, sys
 T, exp = sys.argv[1], json.load(open(sys.argv[2]))
@@ -44,7 +48,8 @@ if [[ "${1:-}" == "--negative" ]]; then
   # the unchanged copy must reproduce first, so an accepted mismatch below can only come from the flip
   run "." >/dev/null || { echo "NEGATIVE CONTROL INVALID: the unchanged repository does not reproduce"; exit 1; }
   for V in out_test/judge/verdicts.jsonl out_holdout/judge/verdicts.jsonl out_holdout/judge_gemini/verdicts.jsonl \
-      out_omni/judge/verdicts.jsonl out_posctrl/judge/verdicts.jsonl; do
+      out_omni/judge/verdicts.jsonl out_posctrl/judge/verdicts.jsonl out_posctrl2/judge_minicpm/verdicts.jsonl \
+      out_posctrl2/judge_gemini/verdicts.jsonl; do
     C=$(mktemp -d); cp -R . "$C/"
     python3 - "$C/pilot/$V" <<'PY'
 import json, sys

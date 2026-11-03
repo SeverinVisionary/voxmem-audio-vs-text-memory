@@ -28,6 +28,7 @@ def latest_rows(path):
     rows = {}
     for l in open(path):
         r = json.loads(l)
+        r["answer"] = r.get("answer") or ""             # an empty reply is judged like any other (it is wrong)
         rows[(r["qid"], r["arm"])] = r
     return [r for r in rows.values() if "error" not in r]
 
@@ -58,9 +59,10 @@ def call(model, items, path):
                ["agy", "--model", model, "--output-format", "text", "--disable-slash-commands", "-p", prompt])
         try:
             r = subprocess.run(cmd, capture_output=True, text=True, timeout=300, stdin=subprocess.DEVNULL)
-        except subprocess.TimeoutExpired:                # agy occasionally hangs; ask again
-            print(f"{model} batch {path} attempt {attempt + 1} timed out", flush=True)
-            continue
+        except subprocess.TimeoutExpired as e:           # agy sometimes prints its full answer and never exits
+            print(f"{model} batch {path} attempt {attempt + 1} timed out; parsing what it printed", flush=True)
+            out = e.stdout.decode() if isinstance(e.stdout, bytes) else (e.stdout or "")
+            r = subprocess.CompletedProcess(cmd, None, out, "")
         m = re.search(r"\[.*\]", r.stdout, re.S)
         try:
             # judges sometimes return the numeric ids as JSON numbers, which drops leading zeros

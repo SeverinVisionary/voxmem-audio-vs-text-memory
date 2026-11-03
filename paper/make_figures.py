@@ -19,6 +19,9 @@ test = json.load(open(P + "out_test/TEST_RESULTS.json"))
 hold = json.load(open(P + "out_holdout/HOLDOUT_RESULTS.json"))
 score = json.load(open(P + "out_holdout/SCORING_RESULTS.json"))
 omni = json.load(open(P + "out_omni/OMNI_RESULTS.json"))
+pc1 = json.load(open(P + "out_posctrl/POSCTRL_RESULTS.json"))
+pc2 = json.load(open(P + "out_posctrl2/POSCTRL2_RESULTS.json"))
+pc2s = json.load(open(P + "out_posctrl2/POSCTRL2_GEMINI_SENSITIVITY.json"))
 arms = [json.loads(l) for l in open(P + "out_test/arms_minicpm.jsonl")]
 
 
@@ -96,19 +99,24 @@ def contrasts():
             ("$G - T^*$, test (matched cost)", test["contrasts"]["H2 G-T@0.25"], False, False),
             ("$G - T^*$, holdout (matched cost)", hold["B3 G-T@0.25"], False, False),
             ("$A - M_{\\rm asr}$, holdout (non-inferiority)", neg(hold["B1 M:asr-A"]), False, True),
-            ("$A - M_{\\rm asr}$, the 48 Gemini families", c["minicpm A-M:asr (same families)"], False, False)]),
+            ("$A - M_{\\rm asr}$, the 48 Gemini families", c["minicpm A-M:asr (same families)"], False, False),
+            ("Ev-A $-$ Ev-M, evidence sessions only", pc2["minicpm"]["P1 Ev-A-Ev-M"], False, False)]),
         ("Qwen3-Omni (preregistered, 142 families)", PURPLE, [
             ("$A - M_{\\rm asr}$ (primary)", omni["all"]["C1 A-M:asr"], False, False),
             ("$G - T^*$ (MiniCPM-o positions)", omni["all"]["C3 G@0.25-T@0.25"], False, False),
-            ("$A - T^*$", neg(omni["all"]["C2 T@0.25-A"]), False, False)]),
+            ("$A - T^*$", neg(omni["all"]["C2 T@0.25-A"]), False, False),
+            ("Ev-A $-$ Ev-M, evidence sessions only", pc1["P1 Ev-A-Ev-M"], False, False)]),
         ("Gemini 3.8 Flash (48; exploratory / unreplicated)", AQUA, [
             ("$A - M_{\\rm asr}$", c["gemini A-M:asr"], False, False),
             ("$A - M_{\\rm asr}$, invalid runs scored right", score["post_hoc"]["gemini invalid runs as answered"]["A_minus_asr"],
              True, False),
             ("$G - T^*$ (matched in MiniCPM-o positions)", c["gemini G-T@0.25"], False, False),
             ("$A - T^*$", neg(score["post_hoc"]["gemini T@0.25-A"]), True, False)]),
+        ("Gemini 3.8 Flash (sealed, preregistered, 142 families)", AQUA, [
+            ("Ev-A $-$ Ev-M, evidence sessions only", pc2["gemini"]["P1 Ev-A-Ev-M"], False, False),
+            ("Ev-A $-$ Ev-M, without 12 non-answer families", pc2s["P1 Ev-A-Ev-M"], True, False)]),
     ]
-    fig, ax = plt.subplots(figsize=(6.0, 4.5))
+    fig, ax = plt.subplots(figsize=(6.0, 5.6))
     y, ticks, labels, heads = 0, [], [], []
     for title, col, items in groups:
         ticks.append(y); labels.append(title); heads.append(len(labels) - 1)

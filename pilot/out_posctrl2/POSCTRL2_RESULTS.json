@@ -1,0 +1,246 @@
+{
+ "minicpm": {
+  "n_families": 142,
+  "failed": {
+   "N": 0,
+   "M:asr": 0,
+   "Ev-A": 0,
+   "Ev-M": 0,
+   "O": 0
+  },
+  "missing": {},
+  "acc": {
+   "N": 7.04,
+   "M:asr": 33.1,
+   "Ev-A": 40.85,
+   "Ev-M": 34.51,
+   "O": 36.62
+  },
+  "acc_by_type": {
+   "speaker_information": {
+    "N": 15.79,
+    "M:asr": 65.79,
+    "Ev-A": 71.05,
+    "Ev-M": 65.79,
+    "O": 60.53
+   },
+   "paralinguistic_information": {
+    "N": 2.99,
+    "M:asr": 22.39,
+    "Ev-A": 35.82,
+    "Ev-M": 28.36,
+    "O": 34.33
+   },
+   "environmental_sound": {
+    "N": 5.41,
+    "M:asr": 18.92,
+    "Ev-A": 18.92,
+    "Ev-M": 13.51,
+    "O": 16.22
+   }
+  },
+  "P1 Ev-A-Ev-M": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 6.34,
+   "se_pp": 2.64,
+   "L_pp": -0.18,
+   "U_pp": 11.29,
+   "p_one_sided": 0.0246,
+   "discordance": 0.12,
+   "loo_range_pp": [
+    5.65,
+    8.21
+   ],
+   "unstratified": {
+    "L_pp": -0.17,
+    "U_pp": 11.4
+   }
+  },
+  "P1": "NOT-SHOWN",
+  "by_type_P1": {
+   "speaker_information": {
+    "n": 38,
+    "clusters": 12,
+    "diff_pp": 5.26,
+    "se_pp": 3.17,
+    "L_pp": -0.19,
+    "U_pp": 10.2,
+    "p_one_sided": 0.24228,
+    "discordance": 0.105,
+    "loo_range_pp": [
+     2.78,
+     6.45
+    ]
+   },
+   "paralinguistic_information": {
+    "n": 67,
+    "clusters": 16,
+    "diff_pp": 7.46,
+    "se_pp": 5.08,
+    "L_pp": -6.1,
+    "U_pp": 17.5,
+    "p_one_sided": 0.14049,
+    "discordance": 0.164,
+    "loo_range_pp": [
+     5.45,
+     11.48
+    ]
+   },
+   "environmental_sound": {
+    "n": 37,
+    "clusters": 25,
+    "diff_pp": 5.41,
+    "se_pp": 3.58,
+    "L_pp": -0.2,
+    "U_pp": 9.87,
+    "p_one_sided": 0.24928,
+    "discordance": 0.054,
+    "loo_range_pp": [
+     2.86,
+     5.88
+    ]
+   }
+  },
+  "P2 O-M:asr": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 3.52,
+   "se_pp": 2.36,
+   "L_pp": -1.18,
+   "U_pp": 8.34,
+   "p_one_sided": 0.15698,
+   "discordance": 0.12,
+   "loo_range_pp": [
+    2.24,
+    4.32
+   ],
+   "unstratified": {
+    "L_pp": -1.39,
+    "U_pp": 8.54
+   }
+  },
+  "P2": "NOT-TESTED (estimate only)",
+  "Ev-A-N": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 33.8,
+   "se_pp": 3.67,
+   "L_pp": 25.85,
+   "U_pp": 39.96,
+   "p_one_sided": 0.0001,
+   "discordance": 0.38,
+   "loo_range_pp": [
+    32.54,
+    35.07
+   ]
+  },
+  "Ev-M-N": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 27.46,
+   "se_pp": 4.81,
+   "L_pp": 17.55,
+   "U_pp": 37.02,
+   "p_one_sided": 0.0006,
+   "discordance": 0.331,
+   "loo_range_pp": [
+    24.63,
+    29.1
+   ]
+  },
+  "same_answer_as_v3": {
+   "N": 0.803,
+   "M:asr": 0.655
+  }
+ },
+ "gemini": {
+  "n_families": 142,
+  "failed": {
+   "Ev-A": 0,
+   "Ev-M": 4
+  },
+  "missing": {},
+  "acc": {
+   "Ev-A": 50.7,
+   "Ev-M": 43.66
+  },
+  "acc_by_type": {
+   "speaker_information": {
+    "Ev-A": 68.42,
+    "Ev-M": 65.79
+   },
+   "paralinguistic_information": {
+    "Ev-A": 52.24,
+    "Ev-M": 43.28
+   },
+   "environmental_sound": {
+    "Ev-A": 29.73,
+    "Ev-M": 21.62
+   }
+  },
+  "P1 Ev-A-Ev-M": {
+   "n": 142,
+   "clusters": 35,
+   "diff_pp": 7.04,
+   "se_pp": 2.96,
+   "L_pp": 0.57,
+   "U_pp": 12.9,
+   "p_one_sided": 0.0396,
+   "discordance": 0.197,
+   "loo_range_pp": [
+    5.74,
+    8.06
+   ],
+   "unstratified": {
+    "L_pp": 0.6,
+    "U_pp": 12.92
+   }
+  },
+  "P1": "HEARS-OLD-CLIPS",
+  "by_type_P1": {
+   "speaker_information": {
+    "n": 38,
+    "clusters": 12,
+    "diff_pp": 2.63,
+    "se_pp": 4.45,
+    "L_pp": -5.24,
+    "U_pp": 11.67,
+    "p_one_sided": 0.50045,
+    "discordance": 0.132,
+    "loo_range_pp": [
+     0.0,
+     5.41
+    ]
+   },
+   "paralinguistic_information": {
+    "n": 67,
+    "clusters": 16,
+    "diff_pp": 8.96,
+    "se_pp": 5.2,
+    "L_pp": -6.56,
+    "U_pp": 19.85,
+    "p_one_sided": 0.09339,
+    "discordance": 0.239,
+    "loo_range_pp": [
+     7.02,
+     12.73
+    ]
+   },
+   "environmental_sound": {
+    "n": 37,
+    "clusters": 25,
+    "diff_pp": 8.11,
+    "se_pp": 6.95,
+    "L_pp": -6.59,
+    "U_pp": 23.72,
+    "p_one_sided": 0.22038,
+    "discordance": 0.189,
+    "loo_range_pp": [
+     5.56,
+     11.76
+    ]
+   }
+  }
+ }
+}
